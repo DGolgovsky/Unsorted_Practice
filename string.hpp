@@ -19,6 +19,16 @@ struct String {
         this->str = nw;
 	}
 
+	String(const String &other) {
+		size = other.size;
+		str = new char[size + 1];
+		strcpy(str, other.str);
+	}
+
+	String &operator=(const String &other) {
+
+	}
+
 	~String() {
 		delete [] str;
 	}
@@ -28,6 +38,5 @@ struct String {
 	char &get(size_t pos);
 	bool equal(const String &other);
 	char *str;
-private:
 	size_t size;
 };
