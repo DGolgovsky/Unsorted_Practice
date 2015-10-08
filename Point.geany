@@ -1,0 +1,56 @@
+[file_prefs]
+final_new_line=true
+ensure_convert_new_lines=true
+strip_trailing_spaces=true
+replace_tabs=false
+
+[indentation]
+indent_width=4
+indent_type=1
+indent_hard_tab_width=8
+detect_indent=true
+detect_indent_width=true
+indent_mode=3
+
+[point_study]
+name=Point
+base_path=/home/dmitry/point_study/Point/
+description=
+file_patterns=
+
+[long line marker]
+long_line_behaviour=1
+long_line_column=72
+
+[files]
+current_page=0
+FILE_NAME_0=0;C++;0;EUTF-8;1;1;1;%2Fhome%2Fdmitry%2Fpoint_study%2FPoint%2Fintarray.cpp;0;4
+FILE_NAME_1=0;C++;0;EUTF-8;1;1;1;%2Fhome%2Fdmitry%2Fpoint_study%2FPoint%2Fintarray.hpp;0;4
+FILE_NAME_2=0;C++;0;EUTF-8;1;1;1;%2Fhome%2Fdmitry%2Fpoint_study%2FPoint%2Fmain.cpp;0;4
+FILE_NAME_3=0;C++;0;EUTF-8;1;1;1;%2Fhome%2Fdmitry%2Fpoint_study%2FPoint%2Fpoint.cpp;0;4
+FILE_NAME_4=0;C++;0;EUTF-8;1;1;1;%2Fhome%2Fdmitry%2Fpoint_study%2FPoint%2Fpoint.hpp;0;4
+FILE_NAME_5=0;C++;0;EUTF-8;1;1;1;%2Fhome%2Fdmitry%2Fpoint_study%2FPoint%2Fsegment.cpp;0;4
+FILE_NAME_6=0;C++;0;EUTF-8;1;1;1;%2Fhome%2Fdmitry%2Fpoint_study%2FPoint%2Fsegment.hpp;0;4
+FILE_NAME_7=0;C++;0;EUTF-8;2;1;1;%2Fhome%2Fdmitry%2Fpoint_study%2FPoint%2Fstring.cpp;0;4
+FILE_NAME_8=0;C++;0;EUTF-8;1;1;1;%2Fhome%2Fdmitry%2Fpoint_study%2FPoint%2Fstring.hpp;0;4
+
+[VTE]
+last_dir=/home/dmitry
+
+[build-menu]
+C++FT_01_LB=_Сборка
+C++FT_01_CM=g++ -Wall -o "%e.bin" *.o
+C++FT_01_WD=
+filetypes=C++;
+C++FT_00_LB=_Compile
+C++FT_00_CM=g++ -Wall -c "%f"
+C++FT_00_WD=
+C++FT_02_LB=CompileAll
+C++FT_02_CM=g++ -Wall -c *.cpp
+C++FT_02_WD=
+
+[project]
+name=Point
+base_path=/home/dmitry/point_study//Point/
+description=
+file_patterns=
