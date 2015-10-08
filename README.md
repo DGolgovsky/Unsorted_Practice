@@ -1,1 +1,1 @@
-# point_study
+# Just C++ studying files
