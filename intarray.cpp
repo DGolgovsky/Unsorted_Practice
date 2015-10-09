@@ -10,3 +10,9 @@ void IntArray::resize(size_t nsize)
 	data_ = ndata;
 	this->data_[0] = nsize;
 }
+
+void IntArray::swap(IntArray &a)
+{
+	std::swap(size_, a.size_);
+	std::swap(data_, a.data_);
+}
