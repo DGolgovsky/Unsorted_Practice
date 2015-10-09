@@ -24,6 +24,9 @@
 #include "segment.hpp"
 #include "intarray.hpp"
 #include "string.hpp"
+#include "student.hpp"
+using std::cout;
+using std::endl;
 
 int main(int argc, char **argv)
 {
@@ -35,10 +38,17 @@ int main(int argc, char **argv)
 	String string_("First");
 	string_.append(String ("_added"));
 
-	std::cout << "Before shift: " << s.length();
+	cout << "Before shift: "  << s.length();
 	s.p1.shift(0.1, 0.2);
-	std::cout << "\nAfter shift: " << s.length();
-	std::cout << "\nString: " << string_.str << std::endl;
+	cout << "\nAfter shift: " << s.length()
+		 << "\nString: " 	  << string_.str
+		 << endl;
+
+	Student stud("John Doe", 20, "MIT");
+	cout << "\nStudent info:\n> Name: " << stud.name()
+		 << "\n> Age: "					<< stud.age()
+		 << "\n> Uni: "					<< stud.university()
+		 << endl;
 
 	return 0;
 }
