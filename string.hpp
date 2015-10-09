@@ -20,16 +20,6 @@ struct String {
         this->str = nw;
 	}
 
-	String(const String &other) {
-		size = other.size;
-		str = new char[size + 1];
-		strcpy(str, other.str);
-	}
-
-	String &operator=(const String &other) {
-
-	}
-
 	~String() {
 		delete [] str;
 	}
