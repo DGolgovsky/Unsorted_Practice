@@ -4,6 +4,7 @@ using std::string;
 
 struct Person
 {
+public:
 	Person(string name, int age)
 		: name_(name), age_(age)
 	{}

@@ -1,8 +1,9 @@
 #pragma once
 #include "person.hpp"
 
-struct Student : Person
+class Student : public Person
 {
+public:
 	Student(string name, int age, string uni)
 		: Person(name, age), uni_(uni)
 	{}

@@ -45,6 +45,10 @@ int main(int argc, char **argv)
 		 << endl;
 
 	Student stud("John Doe", 20, "MIT");
+	Person & l = stud;		// Student & -> Person &
+	Person * r = &stud;		// Student * -> Person *
+	Person p = stud;		// Person("John Doe", 20);
+
 	cout << "\nStudent info:\n> Name: " << stud.name()
 		 << "\n> Age: "					<< stud.age()
 		 << "\n> Uni: "					<< stud.university()
