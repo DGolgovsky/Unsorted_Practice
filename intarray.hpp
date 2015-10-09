@@ -1,15 +1,18 @@
 #pragma once
 #include <algorithm>
 
-class IntArray {
+struct IntArray
+{
 public:
-	IntArray(IntArray const& a) : size_(a.size_), data_(new int[size_]) {
+	IntArray(IntArray const& a)
+		: size_(a.size_), data_(new int[size_]) {
 		for (size_t i = 0; i != size_; ++i)
 			data_[i] = a.data_[i];
 	}
 
 	IntArray & operator=(IntArray const& a) {
 		if (this != &a) {
+			// Equal code
 			/*delete [] data_;
 			size_ = a.size_;
 			data_ = new int [size_];

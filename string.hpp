@@ -4,7 +4,9 @@
 #include <cstddef>   // size_t
 #include <cstring>   // strlen, strcpy
 
-struct String {
+struct String
+{
+public:
 	String(const char *str = "") {
 		this->size = strlen(str);
 		char* nw = new char[this->size + 1];
