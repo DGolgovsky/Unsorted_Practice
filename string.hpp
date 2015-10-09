@@ -1,7 +1,8 @@
 #pragma once
 
-#include <cstddef> // size_t
-#include <cstring> // strlen, strcpy
+#include <algorithm> // std::swap
+#include <cstddef>   // size_t
+#include <cstring>   // strlen, strcpy
 
 struct String {
 	String(const char *str = "") {
@@ -23,11 +24,17 @@ struct String {
 		delete [] str;
 	}
 
+	String &operator=(const String &other) {
+        if (this != &other)
+			String(other).swap(*this);
+		return *this;
+    }
+
+	void swap(String &other);
 	void append(String const &other);
 	size_t length();
 	char &get(size_t pos);
 	bool equal(const String &other);
 	char *str;
-private:
 	size_t size;
 };

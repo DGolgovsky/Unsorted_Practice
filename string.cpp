@@ -20,3 +20,8 @@ bool String::equal(const String &other)
 {
 	return 0;
 }
+
+void String::swap(String &other) {
+    std::swap(size, other.size);
+    std::swap(str, other.str);
+}
