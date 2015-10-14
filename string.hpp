@@ -30,7 +30,10 @@ public:
         if (this != &other)
 			String(other).swap(*this);
 		return *this;
-    }
+	}
+
+	char & at(size_t idx)       { return str[idx]; }
+	char   at(size_t idx) const { return str[idx+1]; }
 
 	void swap(String &other);
 	void append(String const &other);

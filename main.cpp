@@ -25,6 +25,7 @@
 #include "intarray.hpp"
 #include "string.hpp"
 #include "student.hpp"
+
 using std::cout;
 using std::endl;
 
@@ -53,6 +54,14 @@ int main(int argc, char **argv)
 		 << "\n> Age: "					<< stud.age()
 		 << "\n> Uni: "					<< stud.university()
 		 << endl;
+
+	String greet("Hello");
+	char ch1 = greet.at(0);
+	cout << ch1 << endl;
+
+	String const const_greet("Const, Hello!");
+	char const &ch2 = const_greet.at(0);
+	cout << ch2 << endl;
 
 	return 0;
 }
