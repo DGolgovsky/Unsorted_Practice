@@ -1,12 +1,12 @@
 #pragma once
+
 #include <cstring>
 using std::string;
 
 struct Person
 {
 public:
-	Person(string name, int age)
-		: name_(name), age_(age)
+	Person(string name, int age) : name_(name), age_(age)
 	{}
 
 	string name() const {
