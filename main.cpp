@@ -24,7 +24,7 @@
 #include "segment.hpp"
 #include "intarray.hpp"
 #include "string.hpp"
-#include "student.hpp"
+#include "person.hpp"
 
 using std::cout;
 using std::endl;
@@ -46,9 +46,11 @@ int main(int argc, char **argv)
 		 << endl;
 
 	Student stud("John Doe", 20, "MIT");
+	/* Person now is abstract class
 	Person & l = stud;		// Student & -> Person &
 	Person * r = &stud;		// Student * -> Person *
 	Person p = stud;		// Person("John Doe", 20);
+	*/
 
 	cout << "\nStudent info:\n> Name: " << stud.name()
 		 << "\n> Age: "					<< stud.age()
@@ -62,6 +64,8 @@ int main(int argc, char **argv)
 	String const const_greet("Const, Hello!");
 	char const &ch2 = const_greet.at(0);
 	cout << ch2 << endl;
+
+	Professor p("Stroustrup", 63, "C++", "The C++ language");
 
 	return 0;
 }
