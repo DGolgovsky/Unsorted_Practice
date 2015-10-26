@@ -22,19 +22,24 @@
  */
 #include <iostream>
 #include "segment.hpp"
-#include "intarray.hpp"
+#include "array.hpp"
 #include "string.hpp"
 #include "person.hpp"
 
 using std::cout;
 using std::endl;
 
+typedef Array<int> Ints;
+typedef Array<Ints, size_t, Ints const&> IInts;
+
 int main(int argc, char **argv)
 {
 	Segment s(Point(0.4, 1.4), Point(1.2, 6.3));
 	Segment s2(10); // (0,0),(10,0)
 
-	IntArray a1(10); // array of int
+	Array<int>   ai(10); // array of int
+	Array<float> af(20); // array of float
+	IInts da(30);
 
 	String string_("First");
 	string_.append(String ("_added"));
