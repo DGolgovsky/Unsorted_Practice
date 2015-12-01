@@ -1,0 +1,38 @@
+void swap (int * a, int * b)
+{
+	int t = *a;
+	*a = *b;
+	*b = t;
+}
+
+int main()
+{
+	int k = 10, m = 20;
+	swap(&k, &m);
+	cout << k;
+	return 0;
+}
+
+int m[10] = {};
+for (int * p  = m; p <= m + 9; ++p) {
+	*p = (p - m) + 1;
+}
+1 2 .. 10
+
+int max(int * m, int size)
+{
+	int max = *m;
+	for (int i = 1; i < size; ++i)
+		if (m[i] > max)
+			max = m[i];
+	return max;
+}
+
+bool contains(int *p, int * q, int val) { // p - начало, q - адрес после последней ячейки
+	for (; p != q; ++p)
+		if (*p == val)
+			return true;
+	return false;
+}
+
+

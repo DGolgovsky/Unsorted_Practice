@@ -1,0 +1,12 @@
+#include <iostream>
+#include <string>
+
+public:
+inline void pr_message(string s = 'Hello, world!') {
+	std::cout << s << std::endl;
+}
+
+int main() {
+	pr_message();
+	return 0;
+}
