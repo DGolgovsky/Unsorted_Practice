@@ -11,18 +11,14 @@
 
 using namespace std;
 
-#pragma warning(disable:4290)
-
-// Ошибка - аккаунт не существует
+#pragma warning(disable:4290) // Ошибка - аккаунт не существует
 
 class account_not_exist : public logic_error
 {
 public:
-
     account_not_exist()
-    : logic_error("Аккаунт не существует")
-    {
-    };
+        : logic_error("Аккаунт не существует")
+    { };
 };
 
 // Валюты необходимые для задачи
@@ -35,7 +31,8 @@ enum currencies {
 
 // Класс-деньги
 
-class money {
+class money
+{
 public:
     // Конструкторы
     explicit money(double summa = 0.0, currencies currency = RUR) throw (invalid_argument);
@@ -46,27 +43,24 @@ public:
 private:
     // Целая часть суммы
     unsigned int _int_part;
-    // Дробная часть суммы(копейки,центы,и т.д.)
+    // Дробная часть суммы(копейки, центы и т.д.)
     unsigned char _fract_part;
     // Тип валюты
-
-   currencies _currency;
+    currencies _currency;
     unsigned long long smallChange() const;
 
     friend money operator+(const money& left, const money& right);
     friend money operator-(const money& left, const money& right) throw (invalid_argument);
     friend money operator*(const money& left, double right);
     friend money operator*(double left, const money& right);
-    friend bool operator<(const money& left, const money& right);
-    friend bool operator&g
- t;(const money& left, const money& right);
+    friend bool  operator<(const money& left, const money& right);
+    friend bool  operator&(const money& left, const money& right);
     friend wostream & operator<<(wostream& stream, const money& right);
     friend wistream & operator>>(wistream& stream, money& right);
     friend class exchanger;
 };
 
 // Обменник
-
 class exchanger
 {
 public:
@@ -84,19 +78,17 @@ map<currencies, double> exchanger::_rates(rates_arr, rates_arr + sizeof (rates_a
 
 // Для вывода типа валюты будем использовать следующие имена
 typedef pair<currencies, wstring> currency_name_pair;
-currency_name_pair cur
- rencies_names_arr[3] = {currency_name_pair(RUR, L"RUR"), currency_name_pair(USD, L"USD"), currency_name_pair(EUR, L"EUR")};
+currency_name_pair currencies_names_arr[3] = {currency_name_pair(RUR, L"RUR"), currency_name_pair(USD, L"USD"), currency_name_pair(EUR, L"EUR")};
 map<currencies, wstring> currency_names(currencies_names_arr, currencies_names_arr + sizeof (currencies_names_arr) / sizeof (currency_name_pair));
 
 // Аккаунт
-
 class account
 {
 public:
     typedef unsigned int acc_num_type;
     // Конструктор
     account(const wstring& surname, acc_num_type account_num, double percent = 0.0,
-const money& cash = money(0.0)) throw (invalid_argument);
+            const money& cash = money(0.0)) throw (invalid_argument);
     // Меняет владельца
     void setOwner(const wstring& surname);
     // Возвращает владельца
@@ -125,7 +117,6 @@ private:
 };
 
 // Выбор пользователя в меню
-
 enum user_choice
 {
     CREATE,
@@ -159,8 +150,7 @@ wostream & operator<<(wostream& stream, const exception& right)
 {
 #pragma warning(disable:4996)
     const size_t len = mbstowcs(0,right.what(),0) + 1;
-    try
-    {
+    try {
         wchar_t *buffer = new wchar_t[len];
         mbstowcs(buffer, right.what(), len);
         stream<< buffer;
@@ -180,16 +170,12 @@ int main()
     account *acc = 0;
     bool is_exit = false;
 
-    while (!is_exit)
-    {
-        try
-        {
-            switch (menu())
-            {
+    while (!is_exit) {
+        try {
+            switch (menu()) {
                 case CREATE:
                     createAccount(acc);
-             
-        break;
+                    break;
                 case CHANGE_OWNER:
                     changeOwner(acc);
                     break;
@@ -219,14 +205,12 @@ int main()
                     break;
             }
         }
-        catch (exception& ex)
-        {
+        catch (exception& ex) {
             wcout << ex << endl;
         }
     }
-
-    if (acc)
-    {
+    
+    if (acc) {
         delete acc;
         acc = 0;
         wcout << L"Счет уничтожен" << endl;
@@ -241,32 +225,28 @@ wostream& line(wostream& stream)
     return stream;
 }
 
-//
-Меню
+//Меню
 
 user_choice menu()
 {
-    while (true)
-    {
+    while (true) {
         wcout << line
-                << L"Меню:" << endl
-                << L"1 - Создать счет" << endl
-                << L"2 - Сменить владельца" << endl
-                << L"3 - Снять деньги" << endl
-                << L"4 - Положить деньги:" << endl
-                << L"5 - Начислить процент" << endl
-                << L"6 - Обменять на RUR" << endl<
-br>                << L"7 - Обменять на USD" << endl
-                << L"8 - Обменять на EUR" << endl
-                << L"9 - Напечатать информацию об аккаунте" << endl
-                << L"0 - Выход" << endl
-                << L"Сделайте свой выбор:";
+              << L"Меню:" << endl
+              << L"1 - Создать счет" << endl
+              << L"2 - Сменить владельца" << endl
+              << L"3 - Снять деньги" << endl
+              << L"4 - Положить деньги:" << endl
+              << L"5 - Начислить процент" << endl
+              << L"6 - Обменять на RUR" << endl
+              << L"7 - Обменять на USD" << endl
+              << L"8 - Обменять на EUR" << endl
+              << L"9 - Напечатать информацию об аккаунте" << endl
+              << L"0 - Выход" << endl
+              << L"Сделайте свой выбор:";
         wchar_t choice = wcin.get();
         wcin.ignore(numeric_limits<streamsize>::max(), L'\n');
-        wcout <<
-line;
-        switch (choice)
-        {
+        wcout << line;
+        switch (choice) {
             case L'0':
                 return EXIT;
             case L'1':
@@ -296,29 +276,22 @@ line;
 template<class T>
 T input(wstring msg)
 {
-    while
-(true)
-    {
+    while (true) {
         wcout << msg;
         T result;
         wcin >> result;
-        if (wcin.fail())
-        {
+        if (wcin.fail()) {
             wcout << L"Ошибочный ввод!" << endl;
             wcin.clear();
             wcin.ignore(numeric_limits<streamsize>::max(), L'\n');
-        }
-        else
-        {
+        } else {
             wcin.ignore(numeric_limits<streamsize>::max(), L'\n');
-            return 
- result;
+            return result;
         }
     }
 }
 
 // Создает аккаунт
-
 void createAccount(account*& acc)
 {
     wstring surname;
@@ -331,20 +304,16 @@ void createAccount(account*& acc)
 
     money summa = input<money > (L"Сумма денег на счету:");
 
-    try
-
-   {
+    try {
         account* new_acc = new account(surname, accountNum, percent, summa);
-        if (acc)
-        {
+        if (acc) {
             delete acc;
             acc = 0;
             wcout << L"Старый аккаунт удален" << endl;
         }
         acc = new_acc;
     }
-    catch (exception& ex)
-    {
+    catch (exception& ex) {
         wcout << ex << endl;
     }
 }
@@ -353,17 +322,13 @@ void createAccount(account*& acc)
 
 void changeOwner(account* acc)
 {
-    if 
- (acc)
-    {
+    if (acc) {
         wstring surname;
         wcout << L"Введите фамилию нового владельца счета:";
         getline(wcin, surname);
         acc->setOwner(surname);
         wcout << *acc << endl;
-    }
-    else
-    {
+    } else {
         throw account_not_exist();
     }
 }
@@ -372,41 +337,31 @@ void changeOwner(account* acc)
 
 void withdrawMoney(account* acc)
 {
-    if (acc)
-    {
-        money summa = input<money > (L"Какую сумму желаете снять?:");
-
-       summa.setCurrency(acc->getCash().getCurrency());
-        if (acc->withdrawMoney(summa))
-        {
+    if (acc) {
+        money summa = input<money> (L"Какую сумму желаете снять?:");
+        
+        summa.setCurrency(acc->getCash().getCurrency());
+        if (acc->withdrawMoney(summa)) {
             wcout << L"Операция прошла успешно" << endl
-                    << *acc << endl;
-        }
-        else
-        {
+                  << *acc << endl;
+        } else {
             wcout << L"Невозможно снять требуемую сумму" << endl;
         }
-    }
-    else
-    {
+    } else {
         throw account_not_exist();
     }
 }
  
-
 // Ложит деньги на счет
 
 void depositMoney(account* acc)
 {
-    if (acc)
-    {
-        money summa = input<money > (L"Какую сумму желаете положить?:");
+    if (acc) {
+        money summa = input<money> (L"Какую сумму желаете положить?:");
         summa.setCurrency(acc->getCash().getCurrency());
         acc->depositMoney(summa);
         wcout << *acc << endl;
-    }
-    else
-    {
+    } else {
         throw account_not_exist();
     }
 }
@@ -415,44 +370,33 @@ void depositMoney(account* acc)
 
 void thatInterest(account* acc)
 {
-    if (acc)
-    {
+    if (acc) {
         acc->thatInterest();
         wcout << *acc << endl;
-    }
-    else
-    {
+    } else {
         throw account_not_exist();
-
-   }
+    }
 }
 
 // Обмен валют
 
 void exchangeTo(account* acc, currencies currency)
 {
-    if (acc)
-    {
+    if (acc) {
         acc->exchangeTo(currency);
         wcout << *acc << endl;
-    }
-    else
-    {
+    } else {
         throw account_not_exist();
     }
-
 }
 
 // Вывод информации
 
 void printAccount(account* acc)
 {
-    if (acc)
-    {
+    if (acc) {
         wcout << *acc << endl;
-    }
-    else
-    {
+    } else {
         throw account_not_exist();
     }
 }
@@ -461,20 +405,17 @@ void printAccount(account* acc)
 
 money::money(double summa, currencies currency) throw (invalid_argument)
 {
-    if (summa < 0)
-    {
+    if (summa < 0) {
         throw invalid_argument("Сумма не может быть отрицательной");
     }
     _int_part = static_cast<unsigned int> (summa);
-    _fract_part = static_cast<unsigned char> ((summa - _int_part)*100);
+    _fract_part = static_cast<unsigned char> ((summa - _int_part) * 100);
     _currency = currency;
 }
 
-money::money(unsigned
-int int_part, unsigned char fract_part, currencies currency)
+money::money(unsigned int int_part, unsigned char fract_part, currencies currency)
 {
-    if (fract_part > 99)
-    {
+    if (fract_part > 99) {
         throw invalid_argument("Количество мелочи не может быть больше 99");
     }
     _int_part = int_part;
@@ -489,8 +430,7 @@ currencies money::getCurrency()
 
 void money::setCurrency(currencies currency)
 {
-    _currency = currency
- ;
+    _currency = currency;
 }
 
 inline unsigned long long money::smallChange() const
@@ -502,29 +442,26 @@ inline unsigned long long money::smallChange() const
 
 money operator+(const money& left, const money& right)
 {
-    if (left._currency != right._currency)
-    {
+    if (left._currency != right._currency) {
         throw invalid_argument("Тип валюты не совпадает");
     }
     unsigned int fract_part = left._fract_part + right._fract_part;
-    return money(left._int_part + right._int_part + fract_part / 100, fract_part % 100,left._currency);
+    return money(left._int_part + right._int_part + fract_part / 100, fract_part % 100, left._currency);
 }
 
 // Оператор вычитания
 
 money operator-(const money& left, const money& right) throw (invalid_argument)
 {
-    if (left < right)
-    {
+    if (left < right) {
         throw invalid_argument("Сумма слева не может быть меньше суммы справа. Результат операции не может быть отрицательным");
     }
-    if (left._currency != right._currency)
-    {
+    if (left._currency != right._currency) {
         throw invalid_argument("Тип валюты не совпадает");
     }
-  
-   unsigned long long resultSum = (left._int_part - right._int_part) * 100ULL + left._fract_part - right._fract_part;
-    return money(static_cast<unsigned int> (resultSum / 100), resultSum % 100,left._currency);
+
+    unsigned long long resultSum = (left._int_part - right._int_part) * 100ULL + left._fract_part - right._fract_part;
+    return money(static_cast<unsigned int> (resultSum / 100), resultSum % 100, left._currency);
 }
 
 // Оператор умножения(необходим для взятия процента)
@@ -537,7 +474,7 @@ money operator*(const money& left, double right)
 
 inline money operator*(double left, const money& right)
 {
-    return right*left;
+    return right * left;
 }
 
 // Операторы сравнения
@@ -552,8 +489,7 @@ bool operator>(const money& left, const money& right)
     return left.smallChange() > right.smallChange();
 }
 
-/
- / Операторы ввода-вывода
+// Операторы ввода-вывода
 
 wostream & operator<<(wostream& stream, const money& right)
 {
@@ -565,33 +501,30 @@ wistream & operator>>(wistream& stream, money& right)
 {
     double sum;
     stream >> sum;
-    try
-    {
+    try {
         right = money(sum);
     }
-    catch (exception&)
-    {
+    catch (exception&) {
         stream.setstate(ios::badbit);
     }
     return stream;
 }
-#pragma
-endregion Все, относящееся к class money
+#pragma endregion Все, относящееся к class money
 
 money exchanger::exchange(const money& summa, currencies currency)
 {
     double rate = _rates[summa._currency] / _rates[currency];
-    money result = summa*rate;
+    money result = summa * rate;
     result._currency = currency;
     return result;
 }
 
 #pragma region Все, относящееся к class account
 
-account::account(const wstring& surname, acc_num_type account_num, double percent, const money& cash) throw (invalid_argument): _surname(surname), _account_num(account_num), _cash(cash)
+account::account(const wstring& surname, acc_num_type account_num, double percent, const money& cash)
+          throw (invalid_argument): _surname(surname), _account_num(account_num), _cash(cash)
 {
-    if (percent < 0)
-    {
+    if (percent < 0) {
         throw invalid_argument("Процент не может быть отрицательным");
     }
     _percent = percent;
@@ -609,13 +542,11 @@ const wstring& account::getOwner() const
 
 bool account::withdrawMoney(const money& summa)
 {
-    try
-    {
+    try {
         _cash = _cash - summa;
         return true;
     }
-    catch (exception&)
-    {
+    catch (exception&) {
         return false;
     }
 }
@@ -643,11 +574,11 @@ money account::getCash() const
 wostream & operator<<(wostream& stream, const account& right)
 {
     stream << L"Информация об аккаунте:" << endl
-            << L"Владелец:" << right._surname << endl
-            << L"Номер счета:" << right._account_num << endl
-            << L"Процент:" << fixed << setprecision(2) << right._percent << endl
-            << L"Сумма:"
-<< right._cash;
+           << L"Владелец:" << right._surname << endl
+           << L"Номер счета:" << right._account_num << endl
+           << L"Процент:" << fixed << setprecision(2) << right._percent << endl
+           << L"Сумма:" << right._cash;
     return stream;
 }
 #pragma endregion Все, относящееся к class account
+

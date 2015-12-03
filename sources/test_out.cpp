@@ -1,6 +1,4 @@
 /*
- * Copyright 2014 Программист <Программист@PROGRAMMIST>
- *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -15,38 +13,41 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
- *
- *
  */
-
 
 #include <stdio.h>
 #include <iostream>
 #include <ctime>
 
-class TimedSection {
+class TimedSection
+{
+private:
 	char const *d_name;
     struct timespec d_start;
-    public:
-        TimedSection(char const *name) :
-            d_name(name)
-        {
-            clock_gettime(CLOCK_REALTIME, &d_start);
-        }
-		~TimedSection() {
-            timespec end;
-            clock_gettime(CLOCK_REALTIME, &end);
-            double duration = 1e3 * (end.tv_sec - d_start.tv_sec) +
-                              1e-6 * (end.tv_nsec - d_start.tv_nsec);
-            std::cerr << d_name << '\t' << std::fixed << duration << " ms\n";
-        }
+
+public:
+	TimedSection(char const *name)
+		: d_name(name)
+	{
+		clock_gettime(CLOCK_REALTIME, &d_start);
+	}
+
+	~TimedSection()
+	{
+		timespec end;
+		clock_gettime(CLOCK_REALTIME, &end);
+		double duration = 1e3 * (end.tv_sec - d_start.tv_sec) +
+                          1e-6 * (end.tv_nsec - d_start.tv_nsec);
+		std::cerr << d_name << '\t' << std::fixed << duration << " ms\n";
+	}
 };
 
-int main() {
-    const int iters = 10000000;
-    char const *text = "01234567890123456789";
-    {
-        TimedSection s("cout with only endl");
+int main()
+{
+	const int iters = 100;
+	char const *text = "01234567890123456789";
+	{
+		TimedSection s("cout with only endl");
         for (int i = 0; i < iters; ++i)
             std::cout << std::endl;
     }
@@ -90,4 +91,5 @@ int main() {
         for (int i = 0; i < iters; ++i)
             printf("%s01234567890123456789%i\n", text, i);
     }
+	return 0;
 }

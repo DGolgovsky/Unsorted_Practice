@@ -3,7 +3,8 @@
 
 using namespace std;
 
-inline void pr_message(string s = "Hello, world!") {
+inline void pr_message(string s = "Hello, world!")
+{
 	cout << "<< " << s << endl;
 }
 

@@ -19,6 +19,7 @@ struct ValueHolder : ICloneable {
 
 class Any
 {
+private:
     ICloneable * ptr;
 
 public:
