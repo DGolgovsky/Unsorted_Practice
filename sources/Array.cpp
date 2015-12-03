@@ -3,6 +3,9 @@
 template <typename T>
 class Array
 {
+private:
+    size_t    size_;
+    T *       data_;
 public:
     explicit Array(size_t size = 0, const T& value = T())
         : data_(new T[size])
@@ -36,7 +39,4 @@ public:
     //   две версии оператора доступа по индексу.
     T& operator[](size_t i) { return data_[i]; }
     const T& operator[](size_t i) const { return data_[i]; }
-private:
-    size_t    size_;
-    T *       data_;
 };
