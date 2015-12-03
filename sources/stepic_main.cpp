@@ -1,7 +1,7 @@
 /*
  * main.cpp
  *
- * Copyright 2015 D. Golgovsky <d.tekhnolife@gmail.com>
+ * Copyright 2015 D. Golgovsky <d.westcoast@aol.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

@@ -1,5 +1,6 @@
 #include <cstddef> // size_t
 #include <iostream>
+
 using std::cout;
 using std::endl;
 
@@ -13,7 +14,8 @@ type array_size(type (&arr)[Len])
 	return Len;
 }
 
-int main() {
+int main()
+{
 	int ints[] = {1, 2, 3, 4};
 	int *iptr = ints;
 	double doubles[] = {3.14};
@@ -23,5 +25,5 @@ int main() {
 	//array_size(iptr); // тут должна произойти ошибка компиляции
 
 	std::cout << i <<", " << d << "\n";
-return 0;
+	return 0;
 }
