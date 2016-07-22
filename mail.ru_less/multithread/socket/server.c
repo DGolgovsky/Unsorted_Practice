@@ -4,7 +4,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 
-int main(int argc, char ** argv)
+int main(int argc, char **argv)
 {
     /* int s = socket(domain, type, protocol)
      * domain:
@@ -20,36 +20,37 @@ int main(int argc, char ** argv)
      *  IPPROTO_UDP
      *
      * bind (s, (struct sockaddr *)sa, sizeof(sa));
-     *   struct sockaddr_in sa; <-- IPv4
-     *   struct sockaddr_in6 sa; <-- IPv6
+     *  struct sockaddr_in sa; <-- IPv4
+     *  struct sockaddr_in6 sa; <-- IPv6
      *      sa.sin_family = AF_INET;
      *      sa.sin_port = htons(12345);
      *      sa.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
-     *          INADDR_LOOPBACK (127.0.0.1)
+     *          INADDR_LOOPBACK (127.0.0.1) только локальные соединения
      *          INADDR_ANY (0.0.0.0)
      *      ip = inet_addr("10.0.0.1") <-- Convert address string to int
      *           inet_pton(AF_INET, "10.0.0.1", &(sa.sin_addr));
      *
-     *   struct sockaddr_un sa; <-- UNIX Socket
+     *  struct sockaddr_un sa; <-- UNIX Socket
      *      sa.sun_family = AF_UNIX;
      *      strcpy(sa.sun_path, "/tmp/a.sock");
      *
-     * listen (s, SOMAXCONN); // 128 default
-     * while (s1 = accept(s, 0, 0)) {}
-     *      1st 0 <-- struct sockaddr *
+     * listen (s, SOMAXCONN); // длина очереди соединений 128 default
+     * while (s1 = accept(s, 0, 0)) {} s1 - новый сокет последовательный
+     *      1st 0 <-- struct sockaddr * --> пара IP и PORT клиента
      *      2nd 0 <-- size *
      *
      * size_t read (int fd, void *buf, size_t count);
-     *        recv (.., .., .., int flags);
+     *        recv (int fd, void *buf, size_t count, int flags);
      * size_t write (int fd, const void *buf, size_t count);
-     *        send (.., .., .., int flags);
+     *        send (int fd, const void *buf, size_t count, int flags);
      *      SIGPIPE <-- Sys error
-     *      signal(SIGPIPE, SIG_IGN) - ignoring
+     *      signal(SIGPIPE, SIG_IGN) - ignoring sygnal
      *  flags:
      *      MSG_NOSIGNAL
-     * */
+     *
+     */
 
-    int MasterSocket = socket(
+    int MasterSocket = socket( // Дескриптор сокета
             AF_INET /* IPv4 */,
             SOCK_STREAM /* TCP */,
             IPPROTO_TCP);
@@ -79,6 +80,7 @@ int main(int argc, char ** argv)
         send(SlaveSocket, Buffer, 4, MSG_NOSIGNAL);
         shutdown(SlaveSocket, SHUT_RDWR);
         close(SlaveSocket);
+
         printf("%s\n", Buffer);
     }
 
