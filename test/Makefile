@@ -1,9 +1,9 @@
-all: build_server build_client
+all: server client
 
-build_server:
-	gcc -std=c11 -Wall -ggdb -O0 -o server server.c
+server: server.c
+	gcc server.c -std=c11 -Wall -ggdb -fPIC -o server
 
-build_client:
-	gcc -std=c11 -Wall -ggdb -O0 -o client client.c
+client: client.c
+	gcc client.c -std=c11 -Wall -ggdb -o client
 
 

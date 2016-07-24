@@ -1,83 +1,77 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
+
 #include <string.h>
 
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <sys/un.h>
-
 #include <signal.h>
+
+#include <fcntl.h>
 
 int main(int argc, char *argv[])
 {
-    /* int s = socket(domain, type, protocol)
-     * domain:
-     *  AF_INET - IPv4
-     *  AF_INET6 - IPv6
-     *  AF_UNIX - Unix Socket
-     * type:
-     *  SOCK_STREAM - TCP
-     *  SOCK_DGRAM - UDP
-     * protocol:
-     *  0 - default
-     *  IPPROTO_TCP
-     *  IPPROTO_UDP
-     *
-     * bind (s, (struct sockaddr *)sa, sizeof(sa));
-     *   struct sockaddr_in sa; <-- IPv4
-     *   struct sockaddr_in6 sa; <-- IPv6
-     *      sa.sin_family = AF_INET;
-     *      sa.sin_port = htons(12345);
-     *      sa.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
-     *          INADDR_LOOPBACK (127.0.0.1)
-     *          INADDR_ANY (0.0.0.0)
-     *      ip = inet_addr("10.0.0.1") <-- Convert address string to int
-     *           inet_pton(AF_INET, "10.0.0.1", &(sa.sin_addr));
-     *
-     *   struct sockaddr_un sa; <-- UNIX Socket
-     *      sa.sun_family = AF_UNIX;
-     *      strcpy(sa.sun_path, "/tmp/a.sock");
-     *
-     * listen (s, SOMAXCONN); // 128 default
-     * while (s1 = accept(s, 0, 0)) {}
-     *      1st 0 <-- struct sockaddr *
-     *      2nd 0 <-- size *
-     *
-     * size_t read (int fd, void *buf, size_t count);
-     *        recv (.., .., .., int flags);
-     * size_t write (int fd, const void *buf, size_t count);
-     *        send (.., .., .., int flags);
-     *      SIGPIPE <-- Sys error
-     *      signal(SIGPIPE, SIG_IGN) - ignoring
-     *  flags:
-     *      MSG_NOSIGNAL
-     * */
-	unlink("/tmp/database.socket");
-    int MasterSocket = socket( // Дескриптор сокета
-            AF_UNIX /* UNIX */,
-            SOCK_STREAM /* TCP */,
-            0);
+    unlink("/tmp/database.socket");
+  	int fd_server = socket(AF_LOCAL, SOCK_STREAM, 0);
+    if(fd_server < 0) {
+        perror("Socket");
+        exit(1);
+    }
 
-    struct sockaddr_un SockAddr;
-    SockAddr.sun_family = AF_UNIX;
-    strcpy(SockAddr.sun_path, "/tmp/database.socket");
-    bind(MasterSocket, (struct sockaddr *)(&SockAddr), sizeof(SockAddr));
+    struct sockaddr_un server_addr;
+    server_addr.sun_family = AF_LOCAL;
+    strcpy(server_addr.sun_path, "/tmp/database.socket");
 
-    listen(MasterSocket, SOMAXCONN);
+    if(bind(fd_server,
+            (struct sockaddr *)&server_addr,
+            sizeof(server_addr)) == -1) {
+        perror("Bind");
+        close(fd_server);
+        exit(1);
+    }
+
+    if(listen(fd_server, SOMAXCONN) == -1) {
+        perror("Listen");
+        close(fd_server);
+        exit(1);
+    }
+
 	signal(SIGCHLD, SIG_IGN);
+	char buffer[BUFSIZ] = {};
 
     while(1) {
-		char Buffer[BUFSIZ] = " ";
-		printf("Server waiting...\n");
-        int SlaveSocket = accept(MasterSocket, 0, 0);
-		if (fork() == 0) {
-			recv(SlaveSocket, Buffer, sizeof(Buffer), MSG_NOSIGNAL);
-			printf("Recieved from client: %s\n", Buffer);
-			shutdown(SlaveSocket, SHUT_RDWR);
-			close(SlaveSocket);
-		}
-        //send(SlaveSocket, Buffer, sizeof(Buffer), MSG_NOSIGNAL);
+		int fd_client = accept(fd_server, 0, 0);
         
+//		printf("Server waiting...\n");
+
+		if (!fork()) {
+            /* child process */
+			close(fd_server);
+            memset(buffer, 0, BUFSIZ);
+			recv(fd_client, buffer, sizeof(buffer), MSG_NOSIGNAL);
+			printf("Recieve from client: %s\n", buffer);
+/*
+			send(fd_client, buffer, sizeof(buffer), MSG_NOSIGNAL);
+			printf("Send to client: %s\n", buffer);
+*/
+            if(!strcmp(buffer, "PUT")) {
+                int fd_db = open("./db", O_RDWR);
+                printf("Command: PUT\n");
+                close(fd_db);
+            } else if(!strcmp(buffer, "GET")) {
+                int fd_db = open("./db", O_RDWR);
+                printf("Command: GET\n");
+                close(fd_db);
+            }
+			close(fd_client);
+//            printf("Closing..\n");
+            exit(0);
+		}
+        /* parent process */
+		shutdown(fd_client, SHUT_RDWR);
+        close(fd_client);
     }
 
     return 0;
