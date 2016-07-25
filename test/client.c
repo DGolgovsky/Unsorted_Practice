@@ -11,18 +11,31 @@
 
 struct args /* Структура для передачи на сервер */
 {
-	char first[BUFSIZ];
-	char second[BUFSIZ];
-	char third[BUFSIZ];
+	//TODO pointers
+	char cmd[BUFSIZ];
+	char key[BUFSIZ];
+	char value[BUFSIZ];
 };
 
-void error(const char *msg, unsigned char errno)
+void to_lower(const char *str)
 {
-	perror(msg);
-	exit(errno);
+   while(*string)
+   {
+      if ( *string >= 'A' && *string <= 'Z' )
+      {
+         *string = *string + 32;
+      }
+      string++;
+   }
 }
 
-void work_with(int fd, char *argv[])
+void error(const char *msg)
+{
+	printf("[ERROR] %s\n", msg);
+	exit(1);
+}
+
+void work_with(struct args *args, char *argv[])
 {
 /*
   * LIST                 - Вывести список доступных ключей
@@ -31,30 +44,36 @@ void work_with(int fd, char *argv[])
                            если такая запись уже существует, перезаписать её
   * ERASE <key>          - Удалить запись с ключом <key> из таблицы
 */
-	struct args args;
-
-	if(argv[1])
-		strcat(args.first, argv[1]);
-	if(argv[2])
-		strcat(args.second, argv[2]);
-	if(argv[3])
-		strcat(args.third, argv[3]);
-
-	send(fd, &args, sizeof(args), MSG_NOSIGNAL);
-
-/* DEBUGGER */
-	printf("-->Send: %s %s %s\n",
-		   args.first,
-		   args.second,
-		   args.third);
+	if(argv[1]) {
+		strcat(args->cmd, argv[1]);
+		if(!strcmp(args->cmd, "put")) {				/* если PUT */
+			if (!argv[2] || !argv[3])				/* и нет ключ-значение */
+				error("Need <key> and <value>");
+		} else if(!strcmp(args->cmd, "get")			/* если GET */
+		   || !strcmp(args->cmd, "erase")) {		/* или ERASE */
+			if (!argv[2])							/* и нет ключа */
+				error("Need <key>");
+		} else if (strcmp(args->cmd, "list")) {
+			error("Unknown command");
+		}
+		if(argv[2])
+			strcat(args->key, argv[2]);
+		if(argv[3])
+			strcat(args->value, argv[3]);
+	} else
+		error("Unknown arguments");
 }
 
 int main(int argc, char *argv[])
 {
+	struct args args;
+
 	if (argc < 2 || argc > 4)
-		error("Need some args: <cmd> <key> <value>\n", 1);
+		error("Use with args: <cmd> <key> <value>");
 
 	int fd_socket = socket(AF_UNIX, SOCK_STREAM, 0);
+
+	work_with(&args, argv);
 
 	struct sockaddr_un sock_addr;
   	sock_addr.sun_family = AF_UNIX;
@@ -64,9 +83,15 @@ int main(int argc, char *argv[])
 						 (struct sockaddr *)&sock_addr,
 						 sizeof(sock_addr));
 	if (result == -1)
-		error("Can't connect to server\n", 1);
+		error("Connect to server");
 
-	work_with(fd_socket, argv);
+	send(fd_socket, &args, sizeof(args), MSG_NOSIGNAL);
+
+/* DEBUGGER */
+	printf("-->Send: %s %s %s\n",
+		   args.cmd,
+		   args.key,
+		   args.value);
 
 	shutdown(fd_socket, SHUT_RDWR);
 	close(fd_socket);

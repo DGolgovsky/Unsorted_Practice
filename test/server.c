@@ -20,10 +20,12 @@ struct args
 	char value[BUFSIZ];
 };
 
-void error(const char *msg, unsigned char errno)
+//static char[][]
+
+void error(const char *msg)
 {
-	perror(msg);
-	exit(errno);
+	printf("[ERROR] %s\n", msg);
+	return;
 }
 
 void cmd_LIST()
@@ -59,17 +61,22 @@ void work_with(int fd)
 */
 	struct args args;
 	recv(fd, &args, sizeof(args), MSG_NOSIGNAL);
+/* DEBUGGER */
+	printf("<--Recv: [%s] [%s] [%s]\n",
+		   args.cmd,
+		   args.key,
+		   args.value);
 
-	if(!strcmp(args.cmd, "LIST"))
+	if(!strcmp(args.cmd, "list"))
 		cmd_LIST();
-	else if(!strcmp(args.cmd, "GET"))
+	else if(!strcmp(args.cmd, "get"))
 		cmd_GET(args.key);
-	else if(!strcmp(args.cmd, "PUT"))
+	else if(!strcmp(args.cmd, "put"))
 		cmd_PUT(args.key, args.value);
-	else if(!strcmp(args.cmd, "ERASE"))
+	else if(!strcmp(args.cmd, "erase"))
 		cmd_ERASE(args.key);
 	else
-		printf("Unknown command.\n");
+		error("Unknown command or arguments");
 }
 
 int main(int argc, char *argv[])
@@ -78,7 +85,7 @@ int main(int argc, char *argv[])
 
   	int fd_server = socket(AF_LOCAL, SOCK_STREAM, 0);
     if(fd_server < 0)
-		error("Socket error\n", 1);
+		error("Socket");
 
 	struct sockaddr_un server_addr;
     server_addr.sun_family = AF_LOCAL;
@@ -88,12 +95,12 @@ int main(int argc, char *argv[])
             (struct sockaddr *)&server_addr,
             sizeof(server_addr)) == -1) {
         close(fd_server);
-        error("Bind error\n", 1);
+        error("Bind");
     }
 
     if(listen(fd_server, SOMAXCONN) == -1) {
         close(fd_server);
-        error("Listen error\n", 1);
+        error("Listen");
     }
 
 	signal(SIGCHLD, SIG_IGN);
