@@ -9,12 +9,18 @@
 
 #define UNIXSTR_PATH "/tmp/database_socket"
 
-struct args
+struct args /* Структура для передачи на сервер */
 {
 	char first[BUFSIZ];
 	char second[BUFSIZ];
 	char third[BUFSIZ];
 };
+
+void error(const char *msg, unsigned char errno)
+{
+	perror(msg);
+	exit(errno);
+}
 
 void work_with(int fd, char *argv[])
 {
@@ -25,31 +31,29 @@ void work_with(int fd, char *argv[])
                            если такая запись уже существует, перезаписать её
   * ERASE <key>          - Удалить запись с ключом <key> из таблицы
 */
-/* --> ПОПРОБУЙ ПЕРЕДАВАТЬ СТРУКТУРЫ <-- */
-	char buffer[BUFSIZ];
 	struct args args;
 
-	strcat(args.first, argv[1]);
-	strcat(args.second, argv[2]);
-	strcat(args.third, argv[3]);
-
-	strcat(buffer, argv[1]);
-	strcat(buffer, " ");
-	strcat(buffer, argv[2]);
+	if(argv[1])
+		strcat(args.first, argv[1]);
+	if(argv[2])
+		strcat(args.second, argv[2]);
+	if(argv[3])
+		strcat(args.third, argv[3]);
 
 	send(fd, &args, sizeof(args), MSG_NOSIGNAL);
-//	send(fd, buffer, strlen(buffer), MSG_NOSIGNAL);
-//	printf("-->Send: [%lu]%s\n", strlen(buffer), buffer);
-	printf("-->Send: %s %s %s\n", args.first, args.second, args.third);
-/*
-		recv(fd_socket, buffer, strlen(buffer), MSG_NOSIGNAL);
-		printf("<--Recv: [%d]%s\n", strlen(buffer), buffer);
-*/
 
+/* DEBUGGER */
+	printf("-->Send: %s %s %s\n",
+		   args.first,
+		   args.second,
+		   args.third);
 }
 
 int main(int argc, char *argv[])
 {
+	if (argc < 2 || argc > 4)
+		error("Need some args: <cmd> <key> <value>\n", 1);
+
 	int fd_socket = socket(AF_UNIX, SOCK_STREAM, 0);
 
 	struct sockaddr_un sock_addr;
@@ -59,10 +63,8 @@ int main(int argc, char *argv[])
     int result = connect(fd_socket,
 						 (struct sockaddr *)&sock_addr,
 						 sizeof(sock_addr));
-	if (result == -1) {
-		perror("Can't connect to server.\n");
-		exit(1);
-	}
+	if (result == -1)
+		error("Can't connect to server\n", 1);
 
 	work_with(fd_socket, argv);
 

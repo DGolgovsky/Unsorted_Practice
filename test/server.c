@@ -12,12 +12,41 @@
 #include <fcntl.h>
 
 #define UNIXSTR_PATH "/tmp/database_socket"
+
 struct args
 {
-	char first[BUFSIZ];
-	char second[BUFSIZ];
-	char third[BUFSIZ];
+	char cmd[BUFSIZ];
+	char key[BUFSIZ];
+	char value[BUFSIZ];
 };
+
+void error(const char *msg, unsigned char errno)
+{
+	perror(msg);
+	exit(errno);
+}
+
+void cmd_LIST()
+{
+	printf("Command: LIST\n");
+}
+
+void cmd_GET(const char *key)
+{
+	printf("Command: GET\n");
+}
+
+void cmd_PUT(const char *key, const char *value)
+{
+	printf("Command: PUT\n");
+}
+
+void cmd_ERASE(const char *key)
+{
+	printf("Command: ERASE\n");
+	int fd_db = open("./db", O_RDWR);
+	close(fd_db);
+}
 
 void work_with(int fd)
 {
@@ -28,40 +57,43 @@ void work_with(int fd)
                            если такая запись уже существует, перезаписать её
   * ERASE <key>          - Удалить запись с ключом <key> из таблицы
 */
-/* --> ПОПРОБУЙ ПЕРЕДАВАТЬ СТРУКТУРЫ <-- */
-	char buffer[BUFSIZ];
 	struct args args;
 	recv(fd, &args, sizeof(args), MSG_NOSIGNAL);
-//	recv(fd, buffer, sizeof(buffer), MSG_NOSIGNAL);
-//	printf("Recieve from client: %s\n", buffer);
-	printf("Recieve from client: %s %s %s\n", args.first, args.second, args.third);
+
+	if(!strcmp(args.cmd, "LIST"))
+		cmd_LIST();
+	else if(!strcmp(args.cmd, "GET"))
+		cmd_GET(args.key);
+	else if(!strcmp(args.cmd, "PUT"))
+		cmd_PUT(args.key, args.value);
+	else if(!strcmp(args.cmd, "ERASE"))
+		cmd_ERASE(args.key);
+	else
+		printf("Unknown command.\n");
 }
 
 int main(int argc, char *argv[])
 {
     unlink(UNIXSTR_PATH);
-  	int fd_server = socket(AF_LOCAL, SOCK_STREAM, 0);
-    if(fd_server < 0) {
-        perror("Socket");
-        exit(1);
-    }
 
-    struct sockaddr_un server_addr;
+  	int fd_server = socket(AF_LOCAL, SOCK_STREAM, 0);
+    if(fd_server < 0)
+		error("Socket error\n", 1);
+
+	struct sockaddr_un server_addr;
     server_addr.sun_family = AF_LOCAL;
     strcpy(server_addr.sun_path, UNIXSTR_PATH);
 
     if(bind(fd_server,
             (struct sockaddr *)&server_addr,
             sizeof(server_addr)) == -1) {
-        perror("Bind");
         close(fd_server);
-        exit(1);
+        error("Bind error\n", 1);
     }
 
     if(listen(fd_server, SOMAXCONN) == -1) {
-        perror("Listen");
         close(fd_server);
-        exit(1);
+        error("Listen error\n", 1);
     }
 
 	signal(SIGCHLD, SIG_IGN);
@@ -69,29 +101,12 @@ int main(int argc, char *argv[])
     while(1) {
 		int fd_client = accept(fd_server, 0, 0);
         
-//		printf("Server waiting...\n");
-
 		if (!fork()) {
             /* child process */
 			close(fd_server);
+
 			work_with(fd_client);
-/*			char buffer[BUFSIZ];
-			recv(fd_client, buffer, sizeof(buffer), MSG_NOSIGNAL);
-			printf("Recieve from client: %s\n", buffer);
 
-			send(fd_client, buffer, sizeof(buffer), MSG_NOSIGNAL);
-			printf("Send to client: %s\n", buffer);
-
-            if(!strcmp(buffer, "PUT")) {
-                int fd_db = open("./db", O_RDWR);
-                printf("Command: PUT\n");
-                close(fd_db);
-            } else if(!strcmp(buffer, "GET")) {
-                int fd_db = open("./db", O_RDWR);
-                printf("Command: GET\n");
-                close(fd_db);
-            }
-*/
 			close(fd_client);
             exit(0);
 		}
