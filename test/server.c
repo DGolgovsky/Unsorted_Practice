@@ -11,9 +11,35 @@
 
 #include <fcntl.h>
 
+#define UNIXSTR_PATH "/tmp/database_socket"
+struct args
+{
+	char first[BUFSIZ];
+	char second[BUFSIZ];
+	char third[BUFSIZ];
+};
+
+void work_with(int fd)
+{
+/*
+  * LIST                 - Вывести список доступных ключей
+  * GET   <key>          - Получить значение по ключу <key>
+  * PUT   <key> <value>  - Добавить в базу запись с ключом <key> и значением <value>;
+                           если такая запись уже существует, перезаписать её
+  * ERASE <key>          - Удалить запись с ключом <key> из таблицы
+*/
+/* --> ПОПРОБУЙ ПЕРЕДАВАТЬ СТРУКТУРЫ <-- */
+	char buffer[BUFSIZ];
+	struct args args;
+	recv(fd, &args, sizeof(args), MSG_NOSIGNAL);
+//	recv(fd, buffer, sizeof(buffer), MSG_NOSIGNAL);
+//	printf("Recieve from client: %s\n", buffer);
+	printf("Recieve from client: %s %s %s\n", args.first, args.second, args.third);
+}
+
 int main(int argc, char *argv[])
 {
-    unlink("/tmp/database.socket");
+    unlink(UNIXSTR_PATH);
   	int fd_server = socket(AF_LOCAL, SOCK_STREAM, 0);
     if(fd_server < 0) {
         perror("Socket");
@@ -22,7 +48,7 @@ int main(int argc, char *argv[])
 
     struct sockaddr_un server_addr;
     server_addr.sun_family = AF_LOCAL;
-    strcpy(server_addr.sun_path, "/tmp/database.socket");
+    strcpy(server_addr.sun_path, UNIXSTR_PATH);
 
     if(bind(fd_server,
             (struct sockaddr *)&server_addr,
@@ -39,7 +65,6 @@ int main(int argc, char *argv[])
     }
 
 	signal(SIGCHLD, SIG_IGN);
-	char buffer[BUFSIZ] = {};
 
     while(1) {
 		int fd_client = accept(fd_server, 0, 0);
@@ -49,13 +74,14 @@ int main(int argc, char *argv[])
 		if (!fork()) {
             /* child process */
 			close(fd_server);
-            memset(buffer, 0, BUFSIZ);
+			work_with(fd_client);
+/*			char buffer[BUFSIZ];
 			recv(fd_client, buffer, sizeof(buffer), MSG_NOSIGNAL);
 			printf("Recieve from client: %s\n", buffer);
-/*
+
 			send(fd_client, buffer, sizeof(buffer), MSG_NOSIGNAL);
 			printf("Send to client: %s\n", buffer);
-*/
+
             if(!strcmp(buffer, "PUT")) {
                 int fd_db = open("./db", O_RDWR);
                 printf("Command: PUT\n");
@@ -65,8 +91,8 @@ int main(int argc, char *argv[])
                 printf("Command: GET\n");
                 close(fd_db);
             }
+*/
 			close(fd_client);
-//            printf("Closing..\n");
             exit(0);
 		}
         /* parent process */
@@ -76,4 +102,3 @@ int main(int argc, char *argv[])
 
     return 0;
 }
-
