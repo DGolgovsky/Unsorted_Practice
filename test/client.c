@@ -9,23 +9,25 @@
 
 #define UNIXSTR_PATH "/tmp/database_socket"
 
+typedef unsigned char uchar;
+
 struct args /* Структура для передачи на сервер */
 {
 	//TODO pointers
-	char cmd[BUFSIZ];
-	char key[BUFSIZ];
-	char value[BUFSIZ];
+	uchar cmd[5];
+	uchar key[BUFSIZ];
+	uchar value[BUFSIZ];
 };
 
-void to_lower(const char *str)
+void to_lower(char *str)
 {
-   while(*string)
+   while(*str)
    {
-      if ( *string >= 'A' && *string <= 'Z' )
+      if ( *str >= 'A' && *str <= 'Z' )
       {
-         *string = *string + 32;
+         *str = *str + 32;
       }
-      string++;
+      str++;
    }
 }
 
@@ -45,6 +47,7 @@ void work_with(struct args *args, char *argv[])
   * ERASE <key>          - Удалить запись с ключом <key> из таблицы
 */
 	if(argv[1]) {
+		to_lower(argv[1]);
 		strcat(args->cmd, argv[1]);
 		if(!strcmp(args->cmd, "put")) {				/* если PUT */
 			if (!argv[2] || !argv[3])				/* и нет ключ-значение */

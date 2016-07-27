@@ -117,35 +117,37 @@ struct cell *resetiter(struct celliter *ci){
 }
 /* =========================================================== */
 void main(){ /* таблица из имен и размеров файлов текущего каталога */
- struct celliter ci; struct cell *cl;
- char key[40], value[40]; struct cell *val;
- extern FILE *popen();    FILE *fp;     char *s ;
- /* popen() читает вывод команды, заданной в 1-ом аргументе */
- fp = popen( "ls -s", "r" );
- while( fscanf( fp, "%s%s", value, key) == 2 )
-    set(key, value);
- pclose(fp);  /* popen() надо закрывать pclose(); */
- for(;;){
-    printf( "-> " );  /* приглашение */
-    if( !gets( key )) break;   /* EOF */
-    if( *key == '-' ){         /* -КЛЮЧ          :удалить     */
-        printf( del( key+1 ) ? "OK\n" : "нет такого\n");
-        continue;
-    }
-    if( !*key || !strcmp(key, "=")){ /* = :распечатать таблицу*/
-        printtable();    continue;
-    }
-    if(s = strchr(key, '=')){ /* КЛЮЧ=ЗНАЧЕНИЕ  :добавить     */
-        *s++ = '\0';
-        set(key, s); continue;
-    }
-    if((val = get( key )) == NULL) /* КЛЮЧ :найти значение */
-         printf( "нет такого ключа\n");
-    else{ printf( "значение "); printf(VALFMT, val->val);
-          putchar('\n');
-    }
- }
- /* распечатка таблицы при помощи итератора */
- for( cl = resetiter(&ci) ; cl ; cl = nextpair(&ci))
-    printcell(cl), putchar('\n');
+	struct celliter ci; struct cell *cl;
+	char key[40], value[40]; struct cell *val;
+	extern FILE *popen();    FILE *fp;     char *s ;
+	/* popen() читает вывод команды, заданной в 1-ом аргументе */
+	fp = popen( "ls -s", "r" );
+	while( fscanf( fp, "%s%s", value, key) == 2 )
+		set(key, value);
+	pclose(fp);  /* popen() надо закрывать pclose(); */
+	for(;;){
+		printf( "-> " );  /* приглашение */
+		if( !gets( key )) break;   /* EOF */
+		if( *key == '-' ){         /* -КЛЮЧ          :удалить     */
+        	printf( del( key+1 ) ? "OK\n" : "нет такого\n");
+        	continue;
+    	}
+    	if( !*key || !strcmp(key, "=")){ /* = :распечатать таблицу*/
+        	printtable();    continue;
+    	}
+    	if(s = strchr(key, '=')){ /* КЛЮЧ=ЗНАЧЕНИЕ  :добавить     */
+        	*s++ = '\0';
+        	set(key, s); continue;
+    	}
+    	if((val = get( key )) == NULL) /* КЛЮЧ :найти значение */
+        	printf( "нет такого ключа\n");
+    	else {
+			printf( "значение "); printf(VALFMT, val->val);
+          	putchar('\n');
+    	}
+ 	}
+ 	
+	/* распечатка таблицы при помощи итератора */
+	for( cl = resetiter(&ci) ; cl ; cl = nextpair(&ci))
+		printcell(cl), putchar('\n');
 }
