@@ -13,13 +13,13 @@ typedef unsigned char uchar;
 
 struct args /* Структура для передачи на сервер */
 {
-	//TODO pointers
-	uchar cmd[5];
+	uchar cmd[6];
 	uchar key[BUFSIZ];
 	uchar value[BUFSIZ];
 };
 
-void to_lower(char *str)
+
+void to_lower(uchar *str)
 {
    while(*str)
    {
@@ -37,7 +37,7 @@ void error(const char *msg)
 	exit(1);
 }
 
-void work_with(struct args *args, char *argv[])
+void work_with(struct args *args, char **argv)
 {
 /*
   * LIST                 - Вывести список доступных ключей
@@ -49,12 +49,12 @@ void work_with(struct args *args, char *argv[])
 	if(argv[1]) {
 		to_lower(argv[1]);
 		strcat(args->cmd, argv[1]);
-		if(!strcmp(args->cmd, "put")) {				/* если PUT */
-			if (!argv[2] || !argv[3])				/* и нет ключ-значение */
+		if(!strcmp(argv[1], "put")) {				/* если PUT */
+			if (!argv[2] || !argv[3])				
 				error("Need <key> and <value>");
-		} else if(!strcmp(args->cmd, "get")			/* если GET */
-		   || !strcmp(args->cmd, "erase")) {		/* или ERASE */
-			if (!argv[2])							/* и нет ключа */
+		} else if(!strcmp(argv[1], "get")			/* если GET */
+		   || !strcmp(argv[1], "erase")) {			/* или ERASE */
+			if (!argv[2])							
 				error("Need <key>");
 		} else if (strcmp(args->cmd, "list")) {
 			error("Unknown command");
@@ -67,7 +67,7 @@ void work_with(struct args *args, char *argv[])
 		error("Unknown arguments");
 }
 
-int main(int argc, char *argv[])
+int main(int argc, char **argv)
 {
 	struct args args;
 
@@ -88,14 +88,14 @@ int main(int argc, char *argv[])
 	if (result == -1)
 		error("Connect to server");
 
-	send(fd_socket, &args, sizeof(args), MSG_NOSIGNAL);
+	send(fd_socket, (char *)&args, sizeof(args), MSG_NOSIGNAL);
 
 /* DEBUGGER */
-	printf("-->Send: %s %s %s\n",
+/*	printf("-->Send: [%s] [%s] [%s]\n",
 		   args.cmd,
 		   args.key,
 		   args.value);
-
+*/
 	shutdown(fd_socket, SHUT_RDWR);
 	close(fd_socket);
 

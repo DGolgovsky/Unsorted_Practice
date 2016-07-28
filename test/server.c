@@ -10,17 +10,15 @@
 #include <signal.h>
 
 #include <fcntl.h>
+#include "set_nonblock.h" /* функция перевода в неблокирующий режим */
 
 #define UNIXSTR_PATH "/tmp/database_socket"
 #define TBLSIZE 21     /* размер таблицы */
 
-//extern void *malloc(unsigned size);
-
-/* типы ключа и значения: в нашем случае это строки */
+/* типы ключа и значения */
 typedef unsigned char uchar;
 typedef uchar *KEY;
 typedef uchar *VAL;
-
 
 uchar *str_upd(const uchar *s) /* создание копии строки в "куче" */
 {
@@ -29,7 +27,6 @@ uchar *str_upd(const uchar *s) /* создание копии строки в "�
 	return p;
 }
 
-/* одна из возможных хэш-функций */
 unsigned int hash; /* последнее вычисленное значение хэш-функции */
 
 int HASHFUNC(KEY key)
@@ -41,7 +38,7 @@ int HASHFUNC(KEY key)
 		i ^= *key++;
     }
 	hash = i % TBLSIZE;
-//	printf("hash(%s)=%d\n", keysrc, hash);  /* отладка */
+	/* printf("hash(%s)=%d\n", keysrc, hash);  /* отладка */
 	return hash;
 }
 
@@ -53,13 +50,12 @@ int HASHFUNC(KEY key)
 #define KEYFMT          "%s"
 #define VALFMT          "%s"
 
-/* ================== типо-независимая часть ================= */
 struct cell
 {
 	struct cell *next;	/* ссылка на очередной элемент */
 	KEY key;			/* ключ     */
 	VAL val;			/* значение */
-} *table[TBLSIZE];	/* таблица */
+} *table[TBLSIZE];		/* таблица */
 
 /* итератор */
 struct celliter
@@ -91,7 +87,7 @@ struct cell *resetiter(struct celliter *ci)
 
 struct args
 {
-	uchar cmd[5];
+	uchar cmd[6];
 	uchar key[BUFSIZ];
 	uchar value[BUFSIZ];
 };
@@ -109,7 +105,7 @@ struct cell *get(KEY key)
 void cmd_GET(KEY key)
 {
 	struct cell *val;
-	printf("GET: [%s]\n", key);
+	/* printf("GET: [%s]\n", key);  /* отладка */
 	if ((val = get(key)) != NULL) { /* КЛЮЧ :найти значение */
 		printf(VALFMT, val->val);
 		putchar('\n');
@@ -118,7 +114,8 @@ void cmd_GET(KEY key)
 /* занести пару ключ:значение в таблицу */
 void cmd_PUT(KEY key, VAL val)
 {
-	printf("PUT: [%s] [%s]\n", key, val);
+	/* printf("PUT: [%s] [%s]\n", key, val);  /* отладка */
+	
 	struct cell *p;
 	/* проверить - не было ли звена с таким ключом */
 	if ((p = get(key)) == NULL) {       /* не было   */
@@ -135,11 +132,10 @@ void cmd_PUT(KEY key, VAL val)
 /* удаление по ключу */
 void cmd_ERASE(KEY key)
 {
-	printf("ERASE: [%s]\n", key);
 	int indx = HASHFUNC(key);
 	struct cell *p, *prev = NULL;
 	if ((p = table[indx]) == NULL)
-		return 0;
+		return;
     for ( ;p ;prev = p, p = p->next)
 		if (EQKEY(p->key, key)) {
 			FREEVAL(p->val);
@@ -184,22 +180,22 @@ void work_with(int fd)
 	recv(fd, &args, sizeof(args), MSG_NOSIGNAL);
 
 /* DEBUG */
-	printf("<--Recv: [%s] [%s] [%s]\n",
+/*	printf("<--Recv: [%s] [%s] [%s] [%d]\n",
 		   args.cmd,
 		   args.key,
-		   args.value);
-
+		   args.value,
+		   sizeof(args));
+*/
 	if (!strcmp(args.cmd, "list")) {
 		cmd_LIST();
 	} else if (!strcmp(args.cmd, "get")) {
 		cmd_GET(args.key);
 	} else if (!strcmp(args.cmd, "put")) {
-		//args.value[strlen(args.value) + 1] = '\0';
 		cmd_PUT(args.key, args.value);
 	} else if (!strcmp(args.cmd, "erase")) {
 		cmd_ERASE(args.key);
 	} else {
-		error("Unknown command or arguments");
+		/* error("Unknown command or arguments"); */
 	}
 }
 
@@ -208,13 +204,14 @@ int main(void)
 	unlink(UNIXSTR_PATH);
 
 	struct args args;
-
+	/**
+	 * ls -s здесь используется для тестирования системы
+	 */
 	extern FILE *popen();    FILE *fp;
-	/* popen() читает вывод команды, заданной в 1-ом аргументе */
 	fp = popen( "ls -s", "r" );
 	while( fscanf( fp, "%s%s", args.value, args.key) == 2 )
 		cmd_PUT(args.key, args.value);
-	pclose(fp);  /* popen() надо закрывать pclose(); */
+	pclose(fp);
 
 	int fd_server = socket(AF_LOCAL, SOCK_STREAM, 0);
 	if (fd_server < 0)
