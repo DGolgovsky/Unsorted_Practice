@@ -11,13 +11,14 @@
 
 typedef unsigned char uchar;
 
+#pragma pack(push,1) /* отмена выравнивания */
 struct args /* Структура для передачи на сервер */
 {
 	uchar cmd[6];
 	uchar key[BUFSIZ];
 	uchar value[BUFSIZ];
 };
-
+#pragma pack(pop)
 
 void to_lower(uchar *str)
 {
@@ -46,9 +47,12 @@ void work_with(struct args *args, char **argv)
                            если такая запись уже существует, перезаписать её
   * ERASE <key>          - Удалить запись с ключом <key> из таблицы
 */
+	int last = 0;
 	if(argv[1]) {
 		to_lower(argv[1]);
-		strcat(args->cmd, argv[1]);
+		last = strlen(argv[1]);
+		argv[1][last] = '\0';
+		strcpy(args->cmd, argv[1]);
 		if(!strcmp(argv[1], "put")) {				/* если PUT */
 			if (!argv[2] || !argv[3])				
 				error("Need <key> and <value>");
@@ -59,15 +63,21 @@ void work_with(struct args *args, char **argv)
 		} else if (strcmp(args->cmd, "list")) {
 			error("Unknown command");
 		}
-		if(argv[2])
-			strcat(args->key, argv[2]);
-		if(argv[3])
-			strcat(args->value, argv[3]);
+		if(argv[2]) {
+			last = strlen(argv[2]);
+			argv[2][last] = '\0';
+			strcpy(args->key, argv[2]);
+		}
+		if(argv[3]) {
+			last = strlen(argv[3]);
+			argv[3][last] = '\0';
+			strcpy(args->value, argv[3]);
+		}
 	} else
 		error("Unknown arguments");
 }
 
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
 	struct args args;
 

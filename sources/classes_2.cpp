@@ -1,7 +1,7 @@
 // classes.cpp: определяет точку входа для консольного приложения.
  
-//#include "stdafx.h"
 #include <iostream>
+
 using namespace std;
  
 class CppStudio     // имя класса
@@ -11,7 +11,7 @@ private:            // спецификатор доступа private
         month,      // месяц
         year;       // год
 public:             // спецификатор доступа public
-    CppStudio(int& date_day, int& date_month, int& date_year) // установка даты в формате дд.мм.гг
+    CppStudio(int &date_day, int &date_month, int &date_year) // установка даты в формате дд.мм.гг
         : day(date_day)
         , month(date_month)
         , year(date_year)
@@ -28,7 +28,6 @@ public:             // спецификатор доступа public
  
 int main()
 {
-    setlocale(LC_ALL, "rus"); // установка локали
     int day, month, year;
     cout << "Введите текущий день месяц и год!\n";
     cout << "день: ";   cin >> day;
