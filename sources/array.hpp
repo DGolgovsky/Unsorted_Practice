@@ -1,25 +1,35 @@
 #pragma once
+
 #include <algorithm>
 
 template <class Type,
 		  class SizeT = size_t,
 		  class CRet = Type>
-struct Array {
+struct Array
+{
+private:
+	Type	*data_;
+	SizeT	size_;
+	mutable SizeT counter_;
+
 public:
 	explicit Array(SizeT size)
 		: data_(new Type[size])
-		, size_(size) {
+		, size_(size)
+	{
 		for (SizeT i = 0; i != size_; ++i)
 			data_[i] = 0;
 	}
 
-	Array(Array const& a)
+	Array(Array const &a)
 		: data_(new Type[size_])
-		, size_(a.size_) {
+		, size_(a.size_)
+	{
 		for (SizeT i = 0; i != size_; ++i)
 			data_[i] = a.data_[i];
 	}
-	Array & operator=(Array const& a) {
+
+	Array &operator=(Array const &a) {
 		if (this != &a) {
 			// Equal code
 			// delete [] data_;
@@ -43,7 +53,7 @@ public:
 		return data_[i];
 	}
 
-	Type & get(SizeT i) {
+	Type &get(SizeT i) {
 		return data_[i];
 	}
 
@@ -61,10 +71,5 @@ public:
 	}
 
 	CRet operator[](SizeT i) const { return data_[i]; }
-	Type & operator[](SizeT i) { return data_[i]; }
-
-private:
-	Type *	data_;
-	SizeT	size_;
-	mutable SizeT counter_;
+	Type &operator[](SizeT i) { return data_[i]; }
 };
