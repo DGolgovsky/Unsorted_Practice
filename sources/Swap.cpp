@@ -7,7 +7,8 @@ void print_result (int a, int b);
 
 using namespace std;
 
-int main() {	
+int main(void)
+{
 	int wallet1 = 300;
 	int wallet2 = 350;
 	
@@ -26,26 +27,30 @@ int main() {
 	return 0;
 }
 
-void print_result (int a, int b) {
+void print_result (int a, int b)
+{
 	cout << "wallet1 = $" << a
 		 << " wallet2 = $" << b << endl;
 }
 
-void swapr (int &a, int &b) {
+void swapr (int &a, int &b)
+{
 	int temp;
 	temp = a;
 	a = b;
 	b = temp;
 }
 
-void swapp (int *p, int *q) {
+void swapp (int *p, int *q)
+{
 	int temp;
 	temp = *p;
 	*p = *q;
 	*q = temp;
 }
 
-void swapv (int a, int b) {
+void swapv (int a, int b)
+{
 	int temp;
 	temp = a;
 	a = b;
