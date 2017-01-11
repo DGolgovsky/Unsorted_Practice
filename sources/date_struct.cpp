@@ -4,13 +4,14 @@ using namespace std;
 
 struct date
 {
+public:
 	int day, month, year;
 	char s;
 	
-	date() :
-	  day (0),
-	  month (0),
-	  year (0);
+	date()
+		: day (0)
+		, month (0)
+		, year (0)
 	{ }
 };
 
