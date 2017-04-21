@@ -10,4 +10,5 @@
     c++filt _Z13hello_messagePKc
 >> used libraries:
     ldd hello
+	better: objdump -p ./program | grep NEEDED
 
