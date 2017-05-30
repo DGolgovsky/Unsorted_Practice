@@ -1,0 +1,3 @@
+/home/dmitry/git/cpp_study/CppLessons/opencv/example/CMakeFiles/edit_cache.dir
+/home/dmitry/git/cpp_study/CppLessons/opencv/example/CMakeFiles/rebuild_cache.dir
+/home/dmitry/git/cpp_study/CppLessons/opencv/example/CMakeFiles/DisplayImage.dir
