@@ -35,7 +35,7 @@ shared_ptr<S> create() {
 }
 
 int main() {
-	vector<shared_ptr<S>> vec(6);
+	vector< shared_ptr<S> > vec(6);
 	generate(vec.begin(), vec.end(), create);
 	function<void (shared_ptr<S>)> f = bind(&S::print, _1);
 	for_each(vec.begin(), vec.end(), f);
