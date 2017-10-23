@@ -9,7 +9,7 @@ int main()
     }
 
     for(auto const &it : players) {
-        std::cout << it.id << ",";
+        std::cout << it.id() << ",";
         //std::cout << static_cast<const Unit*>(&it)->id << ",";
     }
 
