@@ -8,15 +8,25 @@
  *    ElfArcher
  */
 
-#define unsigned int unitid;
+#ifndef ELFARCHER_H
+#define ELFARCHER_H
 
-struct Unit {
-    unitid id;
+#include "Unit.h"
+#include <iostream>
+
+struct Elf: virtual Unit
+{
+    explicit Elf(size_t);
 };
 
+struct Archer: virtual Unit
+{
+    explicit Archer(size_t);
+};
 
-struct Elf: virtual Unit {};
+struct ElfArcher: Elf, Archer
+{
+    explicit ElfArcher(size_t);
+};
 
-struct Arche: virtual Unit {};
-
-struct ElfArcher: Elf, Archer {};
+#endif

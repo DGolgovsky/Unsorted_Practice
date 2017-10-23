@@ -20,6 +20,11 @@ Base * D1BaseToD2Base(Base const * base)
     const D2* d2 = static_cast<const D2*>(d3);
     return const_cast<Base*>(static_cast<const Base*>(d2));
     */
+
+	/* Another solution
+	return (Base*)(D2*)(D3*)(D1*) base;
+	*/
+
     /* My solution */
     D3 d3;
     D2 &d2 = d3;
