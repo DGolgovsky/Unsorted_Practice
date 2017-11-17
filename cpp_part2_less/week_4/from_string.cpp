@@ -1,6 +1,7 @@
 // Example program
 #include <iostream>
 #include <string>
+#include <string>
 #include <sstream>
 #include <exception>
 #include <typeinfo>
@@ -18,7 +19,7 @@ public:
     explicit bad_from_string(const char* message):
       msg_(message)
       {
-          std::cout << msg_ << '\n';
+          std::cout << msg_ << "\n";
       }
 
     /** Constructor (C++ STL strings).
@@ -27,7 +28,7 @@ public:
     explicit bad_from_string(const std::string& message):
       msg_(message)
     {
-          std::cout << msg_ << '\n';
+          std::cout << msg_ << "\n";
     }
 
     /** Destructor.
@@ -50,12 +51,16 @@ protected:
     std::string msg_;
 };
 
-// функция from_string
+/* <<WARNING>>
+ * Check system don't accept this solution yet
+ */
+
 template<class T>
-T from_string(std::string const& str)
+T from_string(std::string const& str) // функция from_string
 {
     std::istringstream ss(str);
     T num;
+    T tmp;
     auto ln = str.length();
     auto c_name = typeid(T).name();
     if (*c_name == 'c' && ln == 1) {
@@ -65,6 +70,7 @@ T from_string(std::string const& str)
     if (!(ss >> std::noskipws >> num))
         throw bad_from_string("Err while streaming");
     //std::cout << "eof: " << ss.eof() << ", " << typeid(T).name() << '\n';
+    ss >> std::noskipws >> tmp;
     if (!ss.eof())
         throw bad_from_string("Not empty after streaming.");
 
