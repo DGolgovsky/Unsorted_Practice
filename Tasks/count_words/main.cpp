@@ -1,7 +1,7 @@
 /*
  * Developed by Dmitry Golgovsky <d.westcoast@aol.com>
  *
- * Description of the program
+ * Counting the most occurring words in the text
  *
  */
 
