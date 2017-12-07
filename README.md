@@ -1,4 +1,5 @@
 # Just C++ studying files
-Unsorted scrap
+Unsorted scrap and tasks
+
 ## License
 No licensed.
