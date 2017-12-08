@@ -1,0 +1,6 @@
+custom_add_executable(password_cracker)
+
+custom_compiler_opts(password_cracker)
+
+target_link_libraries(password_cracker libcracker)
+
