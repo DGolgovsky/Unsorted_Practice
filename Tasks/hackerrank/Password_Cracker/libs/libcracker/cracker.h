@@ -5,5 +5,5 @@
 #include <list>
 
 namespace cracker {
-std::string crack(unsigned int N, std::string &&passwds, std::string &&login_attempts);
+std::string crack(unsigned int, std::string &&, std::string &&);
 }

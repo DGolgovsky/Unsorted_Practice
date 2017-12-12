@@ -1,7 +1,7 @@
 #include "cracker.h"
 
 namespace cracker {
-std::set<std::string> cache;
+static std::set<std::string> cache;
 
 template <class S, class L>
 inline bool is_valid(std::string &login_attempts, S &pass, L &out)
