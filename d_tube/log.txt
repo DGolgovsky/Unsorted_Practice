@@ -1,0 +1,33 @@
+[LOG] Added:
+	C++ User Group Meeting, 18 декабря <https://www.youtube.com/watch?v=iI-QzuCT1As&list=PLQC2_0cDcSKCeMyP1z6XgWXz26BzKuZaX> [yandex]
+[LOG] Added:
+	C++ Party 2017 <https://www.youtube.com/watch?v=HnAVgswJmEI&list=PLQC2_0cDcSKDK7F9jCDG-nJiivRVutJe9> [yandex]
+[LOG] Added:
+	Обработка изображений <https://www.youtube.com/watch?v=6AAGRZ3xFRY&list=PLwwk4BHih4fjvBj6fWJ3S9OBup4T0g5A7> [stepic]
+[LOG] Added:
+	Алгоритмы. Структуры данных <https://www.youtube.com/watch?v=jD_A74xER9E&list=PLwwk4BHih4fhz7NtsPUbk7B3JXh_CPt3m> [stepic]
+[LOG] Added:
+	Компьютерная графика <https://www.youtube.com/watch?v=TuhJJM2lx9I&list=PLwwk4BHih4fjhdY8_-e4XC46Em3cyo-HJ> [stepic]
+[LOG] Added:
+	Архитектура ЭВМ <https://www.youtube.com/watch?v=ABxY5iA5L84&list=PLwwk4BHih4fhAkCRHXK54t-KSqyuMzXW8> [stepic]
+[LOG] Added:
+	Операционные системы (2017) <https://www.youtube.com/watch?v=2AeUgLPLLxg&list=PLwwk4BHih4fhjN33HkMEr63bvLfCJy6Lg> [stepic]
+[LOG] Added:
+	C++ Weekly <https://www.youtube.com/watch?v=EJtqHLvAIZE&list=PLs3KjaCtOwSZ2tbuV1hx8Xz-rFZTan2J1> [Jason Turner]
+WARNING: --autonumber-size is deprecated. Use output template with %(autonumber)0Nd, where N in the number of digits instead.
+WARNING: --autonumber-size is deprecated. Use output template with %(autonumber)0Nd, where N in the number of digits instead.
+WARNING: --autonumber-size is deprecated. Use output template with %(autonumber)0Nd, where N in the number of digits instead.
+WARNING: --autonumber-size is deprecated. Use output template with %(autonumber)0Nd, where N in the number of digits instead.
+WARNING: --autonumber-size is deprecated. Use output template with %(autonumber)0Nd, where N in the number of digits instead.
+WARNING: --autonumber-size is deprecated. Use output template with %(autonumber)0Nd, where N in the number of digits instead.
+WARNING: --autonumber-size is deprecated. Use output template with %(autonumber)0Nd, where N in the number of digits instead.
+WARNING: --autonumber-size is deprecated. Use output template with %(autonumber)0Nd, where N in the number of digits instead.
+WARNING: Requested formats are incompatible for merge and will be merged into mkv.
+sh: line 1: 27620 Terminated              youtube-dl --autonumber-size 2 -o "%(autonumber)s. %(title)s.%(ext)s" https://www.youtube.com/watch?v=ABxY5iA5L84
+sh: line 1: 27617 Terminated              youtube-dl --autonumber-size 2 -o "%(autonumber)s. %(title)s.%(ext)s" https://www.youtube.com/watch?v=TuhJJM2lx9I
+sh: line 1: 27608 Terminated              youtube-dl --autonumber-size 2 -o "%(autonumber)s. %(title)s.%(ext)s" https://www.youtube.com/watch?v=HnAVgswJmEI
+sh: line 1: 27614 Terminated              youtube-dl --autonumber-size 2 -o "%(autonumber)s. %(title)s.%(ext)s" https://www.youtube.com/watch?v=jD_A74xER9E
+sh: line 1: 27623 Terminated              youtube-dl --autonumber-size 2 -o "%(autonumber)s. %(title)s.%(ext)s" https://www.youtube.com/watch?v=2AeUgLPLLxg
+sh: line 1: 27604 Terminated              youtube-dl --autonumber-size 2 -o "%(autonumber)s. %(title)s.%(ext)s" https://www.youtube.com/watch?v=iI-QzuCT1As
+sh: line 1: 27625 Terminated              youtube-dl --autonumber-size 2 -o "%(autonumber)s. %(title)s.%(ext)s" https://www.youtube.com/watch?v=EJtqHLvAIZE
+sh: line 1: 27611 Terminated              youtube-dl --autonumber-size 2 -o "%(autonumber)s. %(title)s.%(ext)s" https://www.youtube.com/watch?v=6AAGRZ3xFRY
