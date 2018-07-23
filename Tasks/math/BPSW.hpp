@@ -1,3 +1,10 @@
+/*
+ * Тест BPSW на простоту чисел
+ * Источник: http://e-maxx.ru/algo/bpsw
+ */
+
+#ifndef BPSW_HPP_INCLUDED
+#define BPSW_HPP_INCLUDED
 #define _CRT_SECURE_NO_DEPRECATE
 
 #include <algorithm>
@@ -6,6 +13,8 @@
 #include <map>
 #include <vector>
 
+namespace BPSW {
+    
 //! Модуль 64-битного числа
 long long abs(long long n)
 {
@@ -486,13 +495,18 @@ bool is_prime (T n)
     return baillie_pomerance_selfridge_wagstaff (n);
 }
 
+}
+
+#endif // BPSW_HPP_INCLUDED
+
 /* EXAMPLE
 int main()
 {
     std::cout << "Enter any number -> ";
     long long num;
     std::cin >> num;
-    std::cout << (is_prime(num) ? "is prime" : "is composite") << std::endl;
+    std::cout << (BPSW::is_prime(num) ? "is prime" : "is composite") << 
+std::endl;
 
     std::cin.get();
 
