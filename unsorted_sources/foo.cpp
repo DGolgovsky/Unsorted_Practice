@@ -1,32 +1,29 @@
 #include <iostream>
 
-struct Foo
-{
+struct Foo {
 public:
-	void say() const {
-		std::cout << "Foo says: " << msg << "\n";
-	}
+    void say() const {
+        std::cout << "Foo says: " << msg << "\n";
+    }
 
 protected:
-	Foo(const char *msg) : msg(msg) {}
+    Foo(const char *msg) : msg(msg) {}
 
 private:
-	const char *msg;
+    const char *msg;
 };
 
-void foo_says(const Foo& foo)
-{
-	foo.say();
+void foo_says(const Foo &foo) {
+    foo.say();
 }
 
 
-Foo get_foo(const char*str){return *(Foo*)&str;}
+Foo get_foo(const char *str) { return *(Foo *) &str; }
 
 
-int main()
-{
-	foo_says(get_foo("M"));
-	//Foo t = Foo("M");
+int main() {
+    foo_says(get_foo("M"));
+    //Foo t = Foo("M");
 
-	return 0;
+    return 0;
 }

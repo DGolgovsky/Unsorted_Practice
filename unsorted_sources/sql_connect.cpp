@@ -2,48 +2,65 @@
 #include <time.h>
 #include<iostream>
 #include<string.h>
+
 using namespace std;
-class Transport{
-    char  NameTrans[30], skorost[30];
+
+class Transport {
+    char NameTrans[30], skorost[30];
 public:
     Transport();//конструктор безпараметра
-    Transport(char *NameTr,char *skor);//конструкор с двумя параметрами
+    Transport(char *NameTr, char *skor);//конструкор с двумя параметрами
     void Print();
+
     ~Transport();
+
     char *Get_NameTrans();
+
     char *Get_skorost();
+
     Transport &operator=(const Transport &B);
 };
+
 template<class T>
-class List{
+class List {
     T Object;
     List<T> *next = NULL;
     List<T> *first = NULL;
+
     List<T> *Get_last();
+
     int Size;
 public:
     List();
+
     List(T *B, int n);
+
     List(const List<T> &B);
+
     void Input(T object);
+
     void Print();
+
     T operator[](int i);
+
     List<T> operator+(List<T> B);
+
     bool operator==(List<T> B);
+
     List<T> &operator=(const List<T> &B);
+
     ~List();
 };
- 
+
 template<class T>
 List<T> *List<T>::Get_last() {
     if (first) {
         List<T> *cur = first;
         while (cur->next) cur = cur->next;
         return cur;
-    }
-    else return NULL;
+    } else return NULL;
 }
- 
+
 template<class T>
 List<T>::List() {
     Object = NULL;
@@ -51,12 +68,14 @@ List<T>::List() {
     first = NULL;
     Size = 0;
 }
+
 List<Transport>::List() {
     Transport Object;
     next = NULL;
     first = NULL;
     Size = 0;
 }
+
 template<class T>
 List<T>::List(T *B, int n) {
     List<T> *cur;
@@ -67,14 +86,14 @@ List<T>::List(T *B, int n) {
         if (first) {
             cur->next = Add;
             cur = cur->next;
-        }
-        else {
+        } else {
             first = Add;
             cur = first;
         }
     }
     Size = n;
 }
+
 template<class T>
 List<T>::List(const List<T> &B) {
     List<T> *cur2 = B.first;
@@ -86,8 +105,7 @@ List<T>::List(const List<T> &B) {
         if (first) {
             cur->next = Add;
             cur = cur->next;
-        }
-        else {
+        } else {
             first = Add;
             cur = first;
         }
@@ -95,7 +113,7 @@ List<T>::List(const List<T> &B) {
     }
     Size = B.Size;
 }
- 
+
 template<class T>
 void List<T>::Input(T object) {
     List<T> *Add = new List<T>;
@@ -106,7 +124,7 @@ void List<T>::Input(T object) {
     if (last) last->next = Add;
     else first = Add;
 }
- 
+
 template<class T>
 void List<T>::Print() {
     if (first) {
@@ -115,22 +133,22 @@ void List<T>::Print() {
             cout << cur->Object << " ";
             cur = cur->next;
         }
-    }
-    else cout << "Список пуст";
+    } else cout << "Список пуст";
     cout << endl << "-----------------------" << endl;
 }
+
 void List<Transport>::Print() {
     List<Transport> *cur = first;
     if (first) {
         while (cur) {
-            cout << "Название транспорта: " << cur->Object.Get_NameTrans() << " Скорость: " << cur->Object.Get_skorost() << endl;
+            cout << "Название транспорта: " << cur->Object.Get_NameTrans() << " Скорость: " << cur->Object.Get_skorost()
+                 << endl;
             cur = cur->next;
         }
-    }
-    else cout << "Список пуст";
+    } else cout << "Список пуст";
     cout << endl << "-----------------------" << endl;
 }
- 
+
 template<class T>
 T List<T>::operator[](int i) {
     if (i > 0 && i <= Size) {
@@ -141,10 +159,9 @@ T List<T>::operator[](int i) {
             pos++;
         }
         return cur->Object;
-    }
-    else throw 1;
+    } else throw 1;
 }
- 
+
 template<class T>
 List<T> List<T>::operator+(List<T> B) {
     List<T> Temp;
@@ -158,8 +175,7 @@ List<T> List<T>::operator+(List<T> B) {
         if (Temp.first) {
             cur->next = Add;
             cur = cur->next;
-        }
-        else {
+        } else {
             Temp.first = Add;
             cur = Temp.first;
         }
@@ -172,8 +188,7 @@ List<T> List<T>::operator+(List<T> B) {
         if (Temp.first) {
             cur->next = Add;
             cur = cur->next;
-        }
-        else {
+        } else {
             Temp.first = Add;
             cur = Temp.first;
         }
@@ -182,6 +197,7 @@ List<T> List<T>::operator+(List<T> B) {
     Temp.Size = Size + B.Size;
     return Temp;
 }
+
 template<class T>
 List<T> &List<T>::operator=(const List<T> &B) {
     List<T> Temp;
@@ -203,8 +219,7 @@ List<T> &List<T>::operator=(const List<T> &B) {
             if (first) {
                 cur->next = Add;
                 cur = cur->next;
-            }
-            else {
+            } else {
                 first = Add;
                 cur = first;
             }
@@ -214,7 +229,7 @@ List<T> &List<T>::operator=(const List<T> &B) {
     }
     return *this;
 }
- 
+
 template<class T>
 bool List<T>::operator==(List<T> B) {
     List<T> *cur1 = first;
@@ -225,24 +240,25 @@ bool List<T>::operator==(List<T> B) {
             cur1 = cur1->next;
             cur2 = cur2->next;
         }
-    }
-    else return false;
+    } else return false;
     return true;
 }
- 
+
 bool List<Transport>::operator==(List<Transport> B) {
     List<Transport> *cur1 = first;
     List<Transport> *cur2 = B.first;
     if (Size == B.Size) {
         while (cur1 && cur2) {
-            if (strcmp(cur1->Object.Get_NameTrans(), cur2->Object.Get_NameTrans()) || strcmp(cur1->Object.Get_skorost(),cur2->Object.Get_skorost())) return false;
+            if (strcmp(cur1->Object.Get_NameTrans(), cur2->Object.Get_NameTrans()) ||
+                strcmp(cur1->Object.Get_skorost(), cur2->Object.Get_skorost()))
+                return false;
             cur1 = cur1->next;
             cur2 = cur2->next;
         }
-    }
-    else return false;
+    } else return false;
     return true;
 }
+
 template<class T>
 List<T>::~List() {
     List<T> *del = first;
@@ -252,40 +268,43 @@ List<T>::~List() {
         del = first;
     }
 }
-Transport::Transport(){
+
+Transport::Transport() {
     NameTrans[0] = '\0';
     skorost[0] = '\0';
 }
-Transport::Transport(char *NameTr, char *skor){
-        strcpy(NameTrans, NameTr);
-        strcpy(skorost, skor);
+
+Transport::Transport(char *NameTr, char *skor) {
+    strcpy(NameTrans, NameTr);
+    strcpy(skorost, skor);
 }
- 
-void Transport::Print(){
-    if (strlen(NameTrans) && strlen(skorost)){
+
+void Transport::Print() {
+    if (strlen(NameTrans) && strlen(skorost)) {
         cout << "Название транспорта: " << NameTrans << endl;
         cout << "Скорость: " << skorost << endl;
-    }
-    else throw 1;
+    } else throw 1;
 }
- 
-Transport::~Transport(){
+
+Transport::~Transport() {
 }
- 
-char *Transport::Get_NameTrans(){
+
+char *Transport::Get_NameTrans() {
     return NameTrans;
 }
-char *Transport::Get_skorost(){
+
+char *Transport::Get_skorost() {
     return skorost;
 }
- 
-Transport &Transport::operator=(const Transport &B){
-    if (this != &B){
+
+Transport &Transport::operator=(const Transport &B) {
+    if (this != &B) {
         strcpy(NameTrans, B.NameTrans);
         strcpy(skorost, B.skorost);
     }
     return *this;
 }
+
 int main() {
     srand(time(0));
     SetConsoleCP(1251);
@@ -318,8 +337,7 @@ int main() {
     try {
         cout << A[n] << endl;
     }
-    catch (int)
-    {
+    catch (int) {
         cout << "Элемента с данным индексом не существует" << endl;
     }
     cout << "Введите элемент списка B, который нужно вывести: ";
@@ -327,8 +345,7 @@ int main() {
     try {
         cout << B[n] << endl;
     }
-    catch (int)
-    {
+    catch (int) {
         cout << "Элемента с данным индексом не существует" << endl;
     }
     system("pause");
@@ -365,8 +382,7 @@ int main() {
     try {
         A1[n].Print();
     }
-    catch (int)
-    {
+    catch (int) {
         cout << "Элемента с данным индексом не существует" << endl;
     }
     cout << "Введите элемент списка 2 компл. чисел, который нужно вывести: ";
@@ -374,8 +390,7 @@ int main() {
     try {
         A2[n].Print();
     }
-    catch (int)
-    {
+    catch (int) {
         cout << "Элемента с данным индексом не существует" << endl;
     }
     if (A1 == A2) cout << "Списки равны" << endl;

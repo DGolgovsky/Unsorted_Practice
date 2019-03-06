@@ -21,35 +21,33 @@ Sample Output:
 using namespace std;
 
 #define MAX 9223372036854775807
- 
-bool ReadA(int64_t &a)
-{
-	std::string::size_type end = 0;
-	string str;
 
-	std::cin >> str;
+bool ReadA(int64_t &a) {
+    std::string::size_type end = 0;
+    string str;
 
-	std::size_t found = str.find_first_not_of("+\n0123456789");
- 
-	if (found != std::string::npos)
-		return false;
-	else
-		a = stoull(str, NULL, 0);
-	long long value = 0;
+    std::cin >> str;
 
-	if (!(value = std::stoll(str, &end, 10)) || errno)
-		return false;
+    std::size_t found = str.find_first_not_of("+\n0123456789");
 
-	string s = to_string(value);
+    if (found != std::string::npos)
+        return false;
+    else
+        a = stoull(str, NULL, 0);
+    long long value = 0;
 
-	if (a <= 0 || a > MAX)
-		return false;
+    if (!(value = std::stoll(str, &end, 10)) || errno)
+        return false;
+
+    string s = to_string(value);
+
+    if (a <= 0 || a > MAX)
+        return false;
     else
         return true;
 }
 
-int main(void)
-{
+int main(void) {
     int64_t a;
     int64_t b = 0;
 
@@ -63,5 +61,5 @@ int main(void)
         a -= b;
     std::cout << (a ? 0 : b - 1);
     std::cout << std::endl;
-	return 0;
+    return 0;
 }

@@ -15,18 +15,17 @@ Sample Output:
 
 #include <iostream>
 
-int main(void)
-{
+int main(void) {
     double n;
     long double k, pk;
-    
+
     std::cin >> n;
-    if ((n - (long long)n) != 0) {
+    if ((n - (long long) n) != 0) {
         std::cout << "[error]\n";
         return 0;
     }
     long long i = 0, len = 0, j = 0, ii = 0, len_max = 0;
-    
+
     while (j < n && std::cin >> k) {
         ++j;
         if (i == 0) {
@@ -44,20 +43,20 @@ int main(void)
         }
         pk = k;
     }
-    
+
     if (std::cin && j == n && n >= 2) {
         if (len > len_max) {
             ii = i;
             len_max = len;
         }
-        
+
         if (len_max > 1)
             std::cout << len_max << ' ' << ii << '\n';
         else
             std::cout << 0 << '\n';
     } else
         std::cout << "[error]\n";
-    
+
     return 0;
 }
 

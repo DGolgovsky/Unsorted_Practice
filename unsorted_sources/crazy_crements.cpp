@@ -5,10 +5,9 @@
 
 #include <iostream>
 
-int main(void)
-{
+int main(void) {
     int i = 10;
-    i+=++i+++++i++; 
+    i += ++i++ ++ + i++;
     std::cout << i << std::endl;
     return 0;
 }

@@ -9,60 +9,62 @@
 
 using namespace std;
 
-struct ICloneable
-{
-	virtual ICloneable *clone() const = 0;
-	virtual ~ICloneable() { }
+struct ICloneable {
+    virtual ICloneable *clone() const = 0;
+
+    virtual ~ICloneable() {}
 };
 
-template <typename T>
-struct ValueHolder : ICloneable
-{
-	ValueHolder(const T &data): data_(data) {}
-	T data_;
-	ValueHolder *clone() const {
-		return new ValueHolder(*this);
-	}
+template<typename T>
+struct ValueHolder : ICloneable {
+    ValueHolder(const T &data) : data_(data) {}
+
+    T data_;
+
+    ValueHolder *clone() const {
+        return new ValueHolder(*this);
+    }
 };
 
-class Any
-{
+class Any {
 private:
-	ICloneable *ptr;
+    ICloneable *ptr;
 
 public:
-	Any() : ptr(0) {}
+    Any() : ptr(0) {}
 
-	template <class V>
-	Any(const V &v) : ptr(new ValueHolder<V>(v)) {}	
-	Any(Any const &other) : ptr(other.ptr ? other.ptr->clone() : 0) {}
-	Any &operator=(Any const &other) {
-		if (this != &other) {
-			delete ptr;
-			ptr = 0;
-			if (other.ptr)
-				ptr = other.ptr->clone();
-		}
-		return *this;
-	}
+    template<class V>
+    Any(const V &v) : ptr(new ValueHolder<V>(v)) {}
 
-	template <class A>
-	Any &operator=(A const &other) {
-		delete ptr;
-		ptr = 0;
-		ptr = new ValueHolder<A>(other);
-		return *this;
-	}
+    Any(Any const &other) : ptr(other.ptr ? other.ptr->clone() : 0) {}
 
-	~Any() { delete ptr; }
+    Any &operator=(Any const &other) {
+        if (this != &other) {
+            delete ptr;
+            ptr = 0;
+            if (other.ptr)
+                ptr = other.ptr->clone();
+        }
+        return *this;
+    }
 
-	template <class T>
-	T *cast() {
-		if (ptr != 0) {
-			ValueHolder<T> *vh = dynamic_cast<ValueHolder<T>*>(ptr);
-			if (!vh)
-				return 0;
-			return &(vh->data_);
-		}
-	}
+    template<class A>
+    Any &operator=(A const &other) {
+        delete ptr;
+        ptr = 0;
+        ptr = new ValueHolder<A>(other);
+        return *this;
+    }
+
+    ~Any() { delete ptr; }
+
+    template<class T>
+    T *cast() {
+        if (ptr != 0) {
+            ValueHolder<T> *vh = dynamic_cast<ValueHolder<T> *>(ptr);
+            if (!vh)
+                return 0;
+            return &(vh->data_);
+        }
+    }
 };

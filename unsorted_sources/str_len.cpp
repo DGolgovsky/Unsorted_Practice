@@ -1,15 +1,15 @@
 #include <iostream>
 
-unsigned str_len(const char *str)
-{
+unsigned str_len(const char *str) {
     int len = 0;
-    while(*str++) len++;
+    while (*str++) len++;
     return len;
 }
+
 int main() {
-	int len = str_len("Hello!");
-	std::cout << len << "\n";
-	return 0;
+    int len = str_len("Hello!");
+    std::cout << len << "\n";
+    return 0;
 }
 
 /*

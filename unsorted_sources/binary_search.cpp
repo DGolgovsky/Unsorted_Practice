@@ -3,8 +3,7 @@
 
 using namespace std;
 
-vector<int>::const_iterator binarySearch(const vector<int>& container, int element)
-{
+vector<int>::const_iterator binarySearch(const vector<int> &container, int element) {
     const vector<int>::const_iterator endIt = end(container);
 
     vector<int>::const_iterator left = begin(container);
@@ -33,9 +32,8 @@ vector<int>::const_iterator binarySearch(const vector<int>& container, int eleme
     return endIt;
 }
 
-int main()
-{
-    const vector<int> vec = {0,1,2,3,4,5,6,7,8,9,10}; // отсортированный контейнер
+int main() {
+    const vector<int> vec = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10}; // отсортированный контейнер
     const int element = 8; // искомый элемент
 
     auto foundIt = binarySearch(vec, element);

@@ -10,8 +10,7 @@
 #include <iostream>
 #include <cmath>
 
-int main()
-{
+int main() {
     double number = 0.0;
 
     std::cout << "Enter some decimal number: ";

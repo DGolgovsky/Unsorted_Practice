@@ -3,15 +3,13 @@
 
 int tabs = 0;
 
-struct Node
-{
-    int   p_key;
-    Node* p_left  = nullptr;
-    Node* p_right = nullptr;
+struct Node {
+    int p_key;
+    Node *p_left = nullptr;
+    Node *p_right = nullptr;
 };
 
-void insert(Node* &p_tree, int key)
-{
+void insert(Node *&p_tree, int key) {
     if (!p_tree) {
         p_tree = new Node;
         p_tree->p_key = key;
@@ -24,8 +22,7 @@ void insert(Node* &p_tree, int key)
     }
 }
 
-void free(Node* p_tree)
-{
+void free(Node *p_tree) {
     if (p_tree != nullptr) {
         free(p_tree->p_left);
         free(p_tree->p_right);
@@ -33,8 +30,7 @@ void free(Node* p_tree)
     }
 }
 
-void print(Node* p_tree)
-{
+void print(Node *p_tree) {
     if (!p_tree)
         return;
     tabs++;
@@ -49,9 +45,8 @@ void print(Node* p_tree)
     return;
 }
 
-int main()
-{
-    Node* test_tree = new Node;
+int main() {
+    Node *test_tree = new Node;
     std::vector<int> vctr = {20, 14, 17, 2, 30, 25, 13, 28, 36, 49};
     for (auto it : vctr) {
         insert(test_tree, it);

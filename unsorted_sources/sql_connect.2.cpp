@@ -3,22 +3,21 @@
 
 using namespace std;
 
-class Transport
-{
+class Transport {
 private:
     string NameTrans;
     int skorost;
 public:
-    void set_NameTrans (string Name) {
+    void set_NameTrans(string Name) {
         NameTrans = Name;
     }
-    void set_skorost (int sk) {
+
+    void set_skorost(int sk) {
         skorost = sk;
     }
-    Transport (string NameTrans = "slomai_sebe_komp", int skorost = 13)
-        : NameTrans(NameTrans)
-        , skorost(skorost)
-    { }
+
+    Transport(string NameTrans = "slomai_sebe_komp", int skorost = 13)
+            : NameTrans(NameTrans), skorost(skorost) {}
     /* friend ostream& operator<<(ostream& os, const Transport& v) {
         os << "(" << v.NameTrans << ", " << v.skorost << ")";
         return os;
@@ -30,28 +29,28 @@ public:
     }*/
 };
 
-template <class T>
-struct Element
-{
+template<class T>
+struct Element {
     T val;
-    Element<T>* next;
+    Element<T> *next;
+
     Element() {
         next = NULL;
     }
 };
- 
-template <class T>
-class List
-{
+
+template<class T>
+class List {
 public:
     //конструктор без параметра
-    List<T> () {
+    List<T>() {
         p_first = NULL;
         p_last = NULL;
         size = 0;
     }
+
     //конструктор копирования
-    List<T> (const List& old_list) {
+    List<T>(const List &old_list) {
         p_first = NULL;
         p_last = NULL;
         size = 0;
@@ -61,19 +60,22 @@ public:
             p = p->next;
         }
     };
+
     //функция размер
     size_t get_size() const { return size; }
+
     //деструктор
     ~List<T>() {
-        Element<T>* temp;
+        Element<T> *temp;
         while (p_first != NULL) {
             temp = p_first;
             p_first = p_first->next;
             delete temp;// Удаление указателя
         }
     }
+
     //функция добавления
-    void append(T& val) {
+    void append(T &val) {
         if (p_first == NULL) {
             p_last = new Element<T>;
             p_first = p_last;
@@ -84,7 +86,8 @@ public:
         p_last->val = val;// Присваиваем новое значение
         size++;
     }
-    //функция вывода  
+
+    //функция вывода
     void show_all() {
         static Element<T> *temp_p; // Временный указатель
         temp_p = p_first;
@@ -95,10 +98,10 @@ public:
         }
         cout << "]" << endl;
     }
+
     //перегрузка оператора <<
-    friend std::ostream& operator<< (std::ostream& os, const List<T>& list) 
-    {
-        Element<T>* temp_p;
+    friend std::ostream &operator<<(std::ostream &os, const List<T> &list) {
+        Element<T> *temp_p;
         temp_p = list.p_first;
         os << "[";
         while (temp_p != NULL) {
@@ -108,64 +111,70 @@ public:
         os << "]";
         return os;
     }
+
     //перегрузка оператора >>
-    friend std::istream& operator>> (std::istream &in, List<T>& list) {
+    friend std::istream &operator>>(std::istream &in, List<T> &list) {
         T temp;
         in >> temp;
         list.append(temp);
         return in;
     }
-    List<T> &operator() (int i) { //Перегрузка операции удаление по номеру
+
+    List<T> &operator()(int i) { //Перегрузка операции удаление по номеру
         if (i > size) {
             cout << "Введённый индекс превышает размер списка!";
             return *this;
         }
         if (p_first == NULL) return *this;
-        if (p_first == p_last) 
-        {
+        if (p_first == p_last) {
             p_first = NULL;
             delete p_last;
             p_last = NULL;
             size = 0;
             return *this;
         }
-        int ind=0; Element<T>* p;
-        if (ind=i)
-        {
+        int ind = 0;
+        Element<T> *p;
+        if (ind = i) {
             p = p_first->next;// 1 Запоминание удаляемого звена для операции delete
-          p_first->next = p->next; // 2 Проведение новой связи в обход удаляемого звена
-          delete p;
+            p_first->next = p->next; // 2 Проведение новой связи в обход удаляемого звена
+            delete p;
+        } else {
+            p_first = p_first->next;
+            ind++;
         }
-        else {p_first = p_first->next; ind++;}
         --size;
         return *this;
     }
-  List<T>& operator++ (T c,int i)//Перегрузка операции добавления по номеру  
+
+    List<T> &operator++(T c, int i)//Перегрузка операции добавления по номеру
     {
-        if (size == 0) 
-        {
+        if (size == 0) {
             append(c);
             return;
         }
-        Element<T>* p = new Element<T>;
-         p->c = c;int ind=0;
-        if (ind=i)
-        {  
+        Element<T> *p = new Element<T>;
+        p->c = c;
+        int ind = 0;
+        if (ind = i) {
             p->next = p_first->next; // 3 Проведение связи от нового звена к следующему
-           p_first->next = p;       // 4 Проведение связи от "старого" звена к новому
-                       
+            p_first->next = p;       // 4 Проведение связи от "старого" звена к новому
+
+        } else {
+            p_first = p_first->next;
+            ind++;
         }
-        else {p_first = p_first->next; ind++;}
-         ++size;
-          return *this;
+        ++size;
+        return *this;
     }
-    bool operator!=(const List<T>& L) const {
+
+    bool operator!=(const List<T> &L) const {
         if (size != L.size)
-            cout<<"Списки не равны!";
+            cout << "Списки не равны!";
         if (size == L.size) {
- 
-            Element<T>* p1 = p_first;
-            Element<T>* p2 = L.p_first;
+
+            Element<T> *p1 = p_first;
+            Element<T> *p2 = L.p_first;
             while (p1 != NULL) {
                 if (p1->val != p2->val)
                     return false;
@@ -176,15 +185,14 @@ public:
         }
         return false;
     }
- 
+
 private:
-    Element<T>* p_first;
-    Element<T>* p_last;
+    Element<T> *p_first;
+    Element<T> *p_last;
     size_t size;
 };
 
-int main ()
-{
+int main() {
     List<Transport> L;
     //Transport(2, 5) + L; // Proverka 1 peregruzki
     cin >> L; // Zapolnim eshe

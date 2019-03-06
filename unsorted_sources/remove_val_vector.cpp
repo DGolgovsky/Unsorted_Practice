@@ -23,10 +23,9 @@
 #include <algorithm>
 #include <sstream>
 
-class Solution
-{
+class Solution {
 public:
-    int removeElement(std::vector<int>& vec, int val) {
+    int removeElement(std::vector<int> &vec, int val) {
         vec.erase(std::remove(vec.begin(), vec.end(), val), vec.end());
         return vec.size();
     }
@@ -73,21 +72,20 @@ std::string integerVectorToString(std::vector<int> list, int length = -1) {
     }
 
     std::string result;
-    for(int index = 0; index < length; index++) {
+    for (int index = 0; index < length; index++) {
         int number = list[index];
         result += std::to_string(number) + ", ";
     }
     return "[" + result.substr(0, result.length() - 2) + "]";
 }
 
-int main()
-{
+int main() {
     std::string line;
     while (std::getline(std::cin, line)) {
         std::vector<int> nums = stringToIntegerVector(line);
         std::getline(std::cin, line);
         int val = stringToInteger(line);
-        
+
         int ret = Solution().removeElement(nums, val);
 
         std::string out = integerVectorToString(nums, ret);

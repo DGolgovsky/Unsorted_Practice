@@ -10,11 +10,12 @@ using namespace std;
  * the standard input according to the problem statement.
 */
 
-int main()
-{
+int main() {
     int L, H, i;
-    cin >> L; cin.ignore();
-    cin >> H; cin.ignore();
+    cin >> L;
+    cin.ignore();
+    cin >> H;
+    cin.ignore();
     string T;
     getline(cin, T);
     string arr[H];
@@ -25,18 +26,18 @@ int main()
     }
     string out_text[H];
     i = 0;
-    
+
     while (T[i] != '\0') { //word
         int a = toupper(T[i]);
         if (a < 65 || a > 90)
             a = 91;
         for (int k = 0; k < H; ++k) { //lines
             for (int z = 0; z < L; ++z) //chars
-                out_text[k] += arr[k][(a-65)*L + z];
+                out_text[k] += arr[k][(a - 65) * L + z];
         }
         ++i;
     }
-    
+
     for (i = 0; i < H; i++) {
         cout << out_text[i] << endl;
     }

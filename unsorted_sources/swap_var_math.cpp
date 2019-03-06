@@ -1,7 +1,6 @@
 #include <iostream>
 
-int main()
-{
+int main() {
     int A = 0, B = 0;
 
     /*

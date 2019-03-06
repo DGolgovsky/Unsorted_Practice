@@ -1,7 +1,6 @@
 #include <pthread.h>
 
-void *thread_routine(void *arg)
-{
+void *thread_routine(void *arg) {
     int errflag;
     // ...
     errflag = pthread_detach(pthread_self());
@@ -12,8 +11,7 @@ void *thread_routine(void *arg)
     return arg; // return NULL etc.
 }
 
-int main(int argc, char ** argv)
-{
+int main(int argc, char **argv) {
     int errflag;
     pthread_t thread;
 

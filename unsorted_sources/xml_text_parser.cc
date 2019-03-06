@@ -29,11 +29,12 @@
 #include <iostream>
 #include <stdlib.h>
 
-struct indent
-{
-	int depth_;
-	explicit indent(int depth): depth_(depth) {};
+struct indent {
+    int depth_;
+
+    explicit indent(int depth) : depth_(depth) {};
 };
+
 /*
 std::ostream & operator<<(std::ostream & o, indent const & in)
 {
@@ -43,43 +44,42 @@ std::ostream & operator<<(std::ostream & o, indent const & in)
 	return o;
 }
 */
-int main(int argc, char** argv)
-{
-	// Set the global C and C++ locale to the user-configured locale,
-	// so we can use std::cout with UTF-8, via Glib::ustring, without exceptions.
-	std::locale::global(std::locale(""));
+int main(int argc, char **argv) {
+    // Set the global C and C++ locale to the user-configured locale,
+    // so we can use std::cout with UTF-8, via Glib::ustring, without exceptions.
+    std::locale::global(std::locale(""));
 
-	try {
-	//  xmlpp::TextReader reader("example.xml");
-		xmlpp::TextReader reader(argv[1]);
+    try {
+        //  xmlpp::TextReader reader("example.xml");
+        xmlpp::TextReader reader(argv[1]);
 
-		while(reader.read()) {
-			int depth = reader.get_depth();
-			//std::cout << indent(depth) << "--- node ---" << std::endl;
-			std::cout << indent(depth) << "name: " << reader.get_name() << std::endl;
-			//std::cout << indent(depth) << "depth: " << reader.get_depth() << std::endl;
+        while (reader.read()) {
+            int depth = reader.get_depth();
+            //std::cout << indent(depth) << "--- node ---" << std::endl;
+            std::cout << indent(depth) << "name: " << reader.get_name() << std::endl;
+            //std::cout << indent(depth) << "depth: " << reader.get_depth() << std::endl;
 
-			if(reader.has_attributes()) {
-				std::cout << indent(depth) << "attributes: " << std::endl;
-				reader.move_to_first_attribute();
-				do {
-					std::cout << indent(depth) << "  " << reader.get_name() << ": " << reader.get_value() << std::endl;
-				} while(reader.move_to_next_attribute());
-				reader.move_to_element();
-			} else {
-				//std::cout << indent(depth) << "no attributes" << std::endl;
-			}
+            if (reader.has_attributes()) {
+                std::cout << indent(depth) << "attributes: " << std::endl;
+                reader.move_to_first_attribute();
+                do {
+                    std::cout << indent(depth) << "  " << reader.get_name() << ": " << reader.get_value() << std::endl;
+                } while (reader.move_to_next_attribute());
+                reader.move_to_element();
+            } else {
+                //std::cout << indent(depth) << "no attributes" << std::endl;
+            }
 
-			if(reader.has_value())
-				std::cout << indent(depth) << "value: '" << reader.get_value() << "'" << std::endl;
+            if (reader.has_value())
+                std::cout << indent(depth) << "value: '" << reader.get_value() << "'" << std::endl;
 //			else
-				//std::cout << indent(depth) << "novalue" << std::endl;
-		}
-	} catch(const std::exception& e) {
-		std::cerr << "Exception caught: " << e.what() << std::endl;
-		return EXIT_FAILURE;
-	}
+            //std::cout << indent(depth) << "novalue" << std::endl;
+        }
+    } catch (const std::exception &e) {
+        std::cerr << "Exception caught: " << e.what() << std::endl;
+        return EXIT_FAILURE;
+    }
 
-	return EXIT_SUCCESS;
+    return EXIT_SUCCESS;
 }
 

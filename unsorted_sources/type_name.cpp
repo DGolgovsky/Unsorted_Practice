@@ -2,11 +2,10 @@
 #include <tuple>
 #include <typeinfo>
 
-template <class T>
+template<class T>
 constexpr
 std::string_view
-type_name()
-{
+type_name() {
     using namespace std;
 #ifdef __clang__
     string_view p = __PRETTY_FUNCTION__;
@@ -25,9 +24,8 @@ type_name()
 }
 
 
-int main()
-{
-    auto [a, i, b] = std::tuple('a', 123, true);
+int main() {
+    auto[a, i, b] = std::tuple('a', 123, true);
 
     std::cout << "a: " << a << '\t' << typeid(a).name() << '\n';
     std::cout << "a: " << a << '\t' << type_name<decltype(a)>() << '\n';

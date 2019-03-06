@@ -3,9 +3,8 @@
 
 using std::string;
 
-int main(int argc, char* argv[])
-{
-    std::map<string, string> m;
+int main(int argc, char *argv[]) {
+    std::map <string, string> m;
     m["cpp"] = "C++ source file";
     m["cc"] = m["cpp"];
     m["java"] = "Java source file";
@@ -23,7 +22,7 @@ int main(int argc, char* argv[])
             std::cin >> val;
             m[key] = val;
             std::cout << "Added new [" << key << "] = \"" << m[key]
-                << "\".";
+                      << "\".";
         }
         std::cout << "\nkey> ";
     }

@@ -15,6 +15,7 @@
  * Function prototypes
  */
 int rollDice(void);
+
 int playGame(void);
 
 
@@ -25,7 +26,7 @@ int rollDice(void) {
     return ((rand() % 6) + 1);
 }
 
-int playGame(void){
+int playGame(void) {
     int dice_1 = 0;
     int dice_2 = 0;
     int sum = 0;
@@ -42,8 +43,7 @@ int playGame(void){
     sum = dice_1 + dice_2;
     printf("D1:%2d - D2:%2d - Sum:%2d\n", dice_1, dice_2, sum);
 
-    switch ( sum )
-    {
+    switch (sum) {
         case 7:
         case 11:
             result = WON;
@@ -61,16 +61,15 @@ int playGame(void){
             break;
     }
 
-    while ( playForPoint )
-    {
+    while (playForPoint) {
         dice_1 = rollDice();
         dice_2 = rollDice();
         sum = dice_1 + dice_2;
         printf("D1:%2d - D2:%2d - Sum:%2d\n", dice_1, dice_2, sum);
-        if ( sum == 7 ) {
+        if (sum == 7) {
             playForPoint = false;
             result = LOSE;
-        } else if ( sum == point ) {
+        } else if (sum == point) {
             playForPoint = false;
             result = WON;
         } else {
@@ -82,10 +81,9 @@ int playGame(void){
     return result;
 }
 
-int main (void){
+int main(void) {
     int result = playGame();
-    switch ( result )
-    {
+    switch (result) {
         case WON:
             printf("You won the game.\n");
             break;

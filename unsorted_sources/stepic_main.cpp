@@ -30,47 +30,46 @@ using std::cout;
 using std::endl;
 
 typedef Array<int> Ints;
-typedef Array<Ints, size_t, Ints const&> IInts;
+typedef Array<Ints, size_t, Ints const &> IInts;
 
-int main(int argc, char **argv)
-{
-	Segment s(Point(0.4, 1.4), Point(1.2, 6.3));
-	Segment s2(10); // (0,0),(10,0)
+int main(int argc, char **argv) {
+    Segment s(Point(0.4, 1.4), Point(1.2, 6.3));
+    Segment s2(10); // (0,0),(10,0)
 
-	Array<int>   ai(10); // array of int
-	Array<float> af(20); // array of float
-	IInts da(30);
+    Array<int> ai(10); // array of int
+    Array<float> af(20); // array of float
+    IInts da(30);
 
-	String string_("First");
-	string_.append(String ("_added"));
+    String string_("First");
+    string_.append(String("_added"));
 
-	cout << "Before shift: "  << s.length();
-	s.p1.shift(0.1, 0.2);
-	cout << "\nAfter shift: " << s.length()
-		 << "\nString: " 	  << string_.str
-		 << endl;
+    cout << "Before shift: " << s.length();
+    s.p1.shift(0.1, 0.2);
+    cout << "\nAfter shift: " << s.length()
+         << "\nString: " << string_.str
+         << endl;
 
-	Student stud("John Doe", 20, "MIT");
-	/* Person now is abstract class
-	Person & l = stud;		// Student & -> Person &
-	Person * r = &stud;		// Student * -> Person *
-	Person p = stud;		// Person("John Doe", 20);
-	*/
+    Student stud("John Doe", 20, "MIT");
+    /* Person now is abstract class
+    Person & l = stud;		// Student & -> Person &
+    Person * r = &stud;		// Student * -> Person *
+    Person p = stud;		// Person("John Doe", 20);
+    */
 
-	cout << "\nStudent info:\n> Name: " << stud.name()
-		 << "\n> Age: "					<< stud.age()
-		 << "\n> Uni: "					<< stud.university()
-		 << endl;
+    cout << "\nStudent info:\n> Name: " << stud.name()
+         << "\n> Age: " << stud.age()
+         << "\n> Uni: " << stud.university()
+         << endl;
 
-	String greet("Hello");
-	char ch1 = greet.at(0);
-	cout << ch1 << endl;
+    String greet("Hello");
+    char ch1 = greet.at(0);
+    cout << ch1 << endl;
 
-	String const const_greet("Const, Hello!");
-	char const &ch2 = const_greet.at(0);
-	cout << ch2 << endl;
+    String const const_greet("Const, Hello!");
+    char const &ch2 = const_greet.at(0);
+    cout << ch2 << endl;
 
-	Professor p("Stroustrup", 63, "C++", "The C++ language");
+    Professor p("Stroustrup", 63, "C++", "The C++ language");
 
-	return 0;
+    return 0;
 }

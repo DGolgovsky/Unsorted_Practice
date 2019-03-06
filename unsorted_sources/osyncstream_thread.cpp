@@ -11,16 +11,16 @@ void beware_of(std::string_view something) {
 }
 
 int main() {
-    std::thread t1([]{
+    std::thread t1([] {
         say_hello("Rachel");
     });
 
-    std::thread t2([]{
+    std::thread t2([] {
         beware_of("darkness");
     });
 
     std::cerr << '\n';
- 
+
     t2.join();
     t1.join();
 }

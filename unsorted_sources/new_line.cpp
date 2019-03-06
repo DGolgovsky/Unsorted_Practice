@@ -5,20 +5,17 @@
 #include <iostream>
 #include <fstream>
 
-void write_file_output(std::ostream &os)
-{
+void write_file_output(std::ostream &os) {
     // 100's of lines
     os << "do something\n";
     os << "do something else\n";
 }
 
-void writeln(std::ostream &os, const std::string &str)
-{
+void writeln(std::ostream &os, const std::string &str) {
     os << str << '\n';
 }
 
-int main()
-{
+int main() {
     std::ofstream outfile("output.txt", std::ios_base::trunc);
 
     for (i = 0; i < 1000000; ++i) {

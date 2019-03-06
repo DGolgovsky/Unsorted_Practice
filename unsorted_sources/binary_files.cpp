@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+
 using namespace std;
 #pragma pack(push, 1)
 struct Person {
@@ -9,15 +10,14 @@ struct Person {
 };
 #pragma pack(pop)
 
-int main()
-{
+int main() {
     Person someone = {"Frodo", 220, 0.8};
     string filename = "test.bin";
     // Write binary file
     ofstream output_file;
     output_file.open(filename, ios::binary);
     if (output_file.is_open()) {
-        output_file.write(reinterpret_cast<char*>(&someone),
+        output_file.write(reinterpret_cast<char *>(&someone),
                           sizeof(Person));
         output_file.close();
     } else {
@@ -28,8 +28,8 @@ int main()
     ifstream input_file;
     input_file.open(filename, ios::binary);
     if (input_file.is_open()) {
-        input_file.read(reinterpret_cast<char*>(&someoneElse),
-                          sizeof(Person));
+        input_file.read(reinterpret_cast<char *>(&someoneElse),
+                        sizeof(Person));
         input_file.close();
     } else {
         cout << "Could not read file " + filename << endl;

@@ -6,12 +6,12 @@
  */
 #include <algorithm>
 
-template <typename It>
+template<typename It>
 auto balance_median(It const &v) // ~O(N*log(N))
 {
     auto it = v.begin() + v.size() / 2 - 5;
 
-    const auto f = [](const auto& v1, const auto& v2) {
+    const auto f = [](const auto &v1, const auto &v2) {
         return v1.balance() < v2.balance();
     };
 

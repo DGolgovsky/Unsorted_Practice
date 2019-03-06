@@ -6,8 +6,7 @@ struct node {
     struct node *next;
 };
 
-struct node *add_node(struct node *root, int value)
-{
+struct node *add_node(struct node *root, int value) {
     if (!root) {
         root = malloc(sizeof(struct node));
         root->value = value;
@@ -18,32 +17,29 @@ struct node *add_node(struct node *root, int value)
     new_node->value = value;
     new_node->next = NULL;
     struct node *iter = root;
-    while(iter->next) {
+    while (iter->next) {
         iter = iter->next;
     }
     iter->next = new_node;
     return root;
 }
 
-void print_list(struct node *root)
-{
-    while(root) {
+void print_list(struct node *root) {
+    while (root) {
         printf("%d\n", root->value);
         root = root->next;
     }
 }
 
-void free_list(struct node *root)
-{
-    while(root) {
+void free_list(struct node *root) {
+    while (root) {
         struct node *iter = root;
         root = root->next;
         free(iter);
     }
 }
 
-struct node *delete_from_list(struct node *root, int value)
-{
+struct node *delete_from_list(struct node *root, int value) {
     if (root->value == value) {
         struct node *iter = root->next;
         free(root);
@@ -51,7 +47,7 @@ struct node *delete_from_list(struct node *root, int value)
     }
     printf("DEL: %d\n", value);
     struct node *iter = root;
-    while(iter) {
+    while (iter) {
         if (iter->next && (iter->next->value == value)) {
             printf("FOUND: %d\n", iter->next->value);
             struct node *tmp = iter->next;
@@ -63,8 +59,7 @@ struct node *delete_from_list(struct node *root, int value)
     return root;
 }
 
-int main()
-{
+int main() {
     struct node *root = add_node(NULL, 10);
     root = add_node(root, 15);
     root = add_node(root, 3);

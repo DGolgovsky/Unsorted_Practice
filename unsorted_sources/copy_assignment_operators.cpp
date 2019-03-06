@@ -1,29 +1,29 @@
 #include <iostream>
 
-class Foo
-{
+class Foo {
 public:
     explicit Foo(int data) {
         std::cerr << "Constructor called" << std::endl;
         this->m_data = data;
     }
+
     ~Foo() = default;
 
     // Assignment operator
-    Foo& operator=(const Foo& rhs) {
+    Foo &operator=(const Foo &rhs) {
         std::cerr << "&operator= called" << std::endl;
         m_data = rhs.m_data;
         return *this;
     }
 
     // Copy Constructor
-    Foo(const Foo& rhs) {
+    Foo(const Foo &rhs) {
         std::cerr << "Copy Constructor called" << std::endl;
         m_data = rhs.m_data;
     }
 
     // Copy Constructor
-    Foo(const Foo&& rhs) {
+    Foo(const Foo &&rhs) {
         std::cerr << "Move Constructor called" << std::endl;
         m_data = rhs.m_data;
     }
@@ -36,8 +36,7 @@ private:
     int m_data;
 };
 
-int main()
-{
+int main() {
     Foo foo(2); // Foo(int data) called
 
     Foo foo2(42);

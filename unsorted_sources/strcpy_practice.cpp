@@ -3,8 +3,7 @@
 
 using namespace std;
 
-int main(int argc, char* argv[])
-{
+int main(int argc, char *argv[]) {
     char s1[20] = "C++ forever a ever!";
     char s2[16];
     cout << "strncpy(s2, s1, sizeof(s2)) = " << strncpy(s2, s1, sizeof(s2)) << endl;

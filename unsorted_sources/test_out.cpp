@@ -19,35 +19,31 @@
 #include <iostream>
 #include <ctime>
 
-class TimedSection
-{
+class TimedSection {
 private:
-	char const *d_name;
+    char const *d_name;
     struct timespec d_start;
 
 public:
-	TimedSection(char const *name)
-		: d_name(name)
-	{
-		clock_gettime(CLOCK_REALTIME, &d_start);
-	}
+    TimedSection(char const *name)
+            : d_name(name) {
+        clock_gettime(CLOCK_REALTIME, &d_start);
+    }
 
-	~TimedSection()
-	{
-		timespec end;
-		clock_gettime(CLOCK_REALTIME, &end);
-		double duration = 1e3 * (end.tv_sec - d_start.tv_sec) +
+    ~TimedSection() {
+        timespec end;
+        clock_gettime(CLOCK_REALTIME, &end);
+        double duration = 1e3 * (end.tv_sec - d_start.tv_sec) +
                           1e-6 * (end.tv_nsec - d_start.tv_nsec);
-		std::cerr << d_name << '\t' << std::fixed << duration << " ms\n";
-	}
+        std::cerr << d_name << '\t' << std::fixed << duration << " ms\n";
+    }
 };
 
-int main()
-{
-	const int iters = 100;
-	char const *text = "01234567890123456789";
-	{
-		TimedSection s("cout with only endl");
+int main() {
+    const int iters = 100;
+    char const *text = "01234567890123456789";
+    {
+        TimedSection s("cout with only endl");
         for (int i = 0; i < iters; ++i)
             std::cout << std::endl;
     }
@@ -91,5 +87,5 @@ int main()
         for (int i = 0; i < iters; ++i)
             printf("%s01234567890123456789%i\n", text, i);
     }
-	return 0;
+    return 0;
 }

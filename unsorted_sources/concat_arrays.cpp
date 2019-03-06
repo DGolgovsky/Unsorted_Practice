@@ -4,8 +4,7 @@
 #include <array>
 
 template<typename T>
-void fill_array(T &arr)
-{
+void fill_array(T &arr) {
     int input = 0;
     auto size = sizeof(arr) / sizeof(arr[0]);
     std::size_t i = 0;
@@ -14,7 +13,7 @@ void fill_array(T &arr)
         if (std::cin.fail()) { // user didn't input a number
             std::cin.clear(); // reset failbit
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(),
-                       '\n'); //skip bad input
+                            '\n'); //skip bad input
             // next, request user reinput
         } else {
             arr[i++] = input;
@@ -22,8 +21,7 @@ void fill_array(T &arr)
     }
 }
 
-int main()
-{
+int main() {
     const unsigned int N1 = 7;
     const unsigned int N2 = 7;
     const unsigned int N3 = N1 + N2;
@@ -34,8 +32,10 @@ int main()
     std::array<int, N2> arr2;
     std::array<int, N3> arr3;
 
-    std::cout << "Fill array1(" << N1 << "): "; fill_array(arr1);
-    std::cout << "Fill array2(" << N1 << "): "; fill_array(arr2);
+    std::cout << "Fill array1(" << N1 << "): ";
+    fill_array(arr1);
+    std::cout << "Fill array2(" << N1 << "): ";
+    fill_array(arr2);
 
     std::merge(arr1.begin(), arr1.end(),
                arr2.begin(), arr2.end(),

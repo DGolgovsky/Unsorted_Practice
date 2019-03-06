@@ -18,18 +18,27 @@
 #include <cstring>
 
 struct Copy {
-  uintptr_t from_{0};
-  uintptr_t to_{0};
-  Copy() {}
-  inline Copy& from(uintptr_t where) { from_ = where; return *this; }
-  inline Copy& to(uintptr_t where) { to_ = where; return *this; }
-  inline void perform(size_t count) {
-    memmove((void*)to_, (const void*)from_, count);
-  }
+    uintptr_t from_{0};
+    uintptr_t to_{0};
+
+    Copy() {}
+
+    inline Copy &from(uintptr_t where) {
+        from_ = where;
+        return *this;
+    }
+
+    inline Copy &to(uintptr_t where) {
+        to_ = where;
+        return *this;
+    }
+
+    inline void perform(size_t count) {
+        memmove((void *) to_, (const void *) from_, count);
+    }
 };
 
-int main()
-{
-  Copy().to(0x1234).from(0x3421).perform(512);
-  Copy().from(0x1234).to(0x3421).perform(1024);
+int main() {
+    Copy().to(0x1234).from(0x3421).perform(512);
+    Copy().from(0x1234).to(0x3421).perform(1024);
 }

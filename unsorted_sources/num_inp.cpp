@@ -3,13 +3,14 @@
 Числа, следующие за числом 0, считывать не нужно.
 */
 #include <iostream>
+
 int main() {
-  int N = 0, i = 0;
-  while (std::cin >> N) {
-    if (N == 0)
-      break;
-	i++;
-  }
-  std::cout << i << "\n";
-  return 0;
+    int N = 0, i = 0;
+    while (std::cin >> N) {
+        if (N == 0)
+            break;
+        i++;
+    }
+    std::cout << i << "\n";
+    return 0;
 }

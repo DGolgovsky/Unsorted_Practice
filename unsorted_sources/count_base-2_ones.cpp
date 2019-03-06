@@ -10,8 +10,8 @@
 int main() {
     int n = 0;
     std::cin >> n;
-    
-    int counter = 0, max =0;
+
+    int counter = 0, max = 0;
     while (n > 0) {
         int rem = n % 2;
         if (rem == 1)
@@ -22,6 +22,6 @@ int main() {
         n /= 2;
     }
     std::cout << max << '\n';
-    
+
     return 0;
 }

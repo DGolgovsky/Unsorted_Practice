@@ -5,8 +5,7 @@
 
 using namespace std;
 
-struct Foo
-{
+struct Foo {
     Foo() {
         cout << "Foo" << endl;
     }
@@ -15,15 +14,14 @@ struct Foo
         cout << "Hi" << endl;
     }
 
-    ~Foo () {
+    ~Foo() {
         cout << "~Foo" << endl;
     }
 };
 
-class DeleteFoo
-{
+class DeleteFoo {
 public:
-    void operator() (Foo* p) const {
+    void operator()(Foo *p) const {
         cout << "Call delete for Foo object" << endl;
         delete p;
     }
@@ -31,17 +29,16 @@ public:
 
 // C++11
 
-int main()
-{
+int main() {
 // UNIQUE_PTR
     {
         //p1 is Foo
-        unique_ptr<Foo> p1(new Foo);
+        unique_ptr <Foo> p1(new Foo);
         if (p1)
             p1->show();
         {
             //p2 is p1 (Foo), p1 - empty
-            std::unique_ptr<Foo> p2(move(p1));
+            std::unique_ptr <Foo> p2(move(p1));
             if (!p1)
                 cout << "p1 is empty" << endl;
 
@@ -62,14 +59,14 @@ int main()
     cout << endl << "shared_ptr: " << endl << endl;
     {
         // Constructor with no managed object
-        shared_ptr<Foo> sh1;
+        shared_ptr <Foo> sh1;
 
         // Constructor with object
         // auto sh2 = std::make_shared<Foo>();
-        shared_ptr<Foo> sh2(new Foo);
+        shared_ptr <Foo> sh2(new Foo);
 
         // Copy pointer
-        shared_ptr<Foo> sh3(sh2);
+        shared_ptr <Foo> sh3(sh2);
 
         // Count link on one object
         cout << sh2.use_count() << endl;
@@ -80,7 +77,7 @@ int main()
         sh3->show();
 
         // Constructor with object and deleter
-        shared_ptr<Foo> sh4(new Foo, DeleteFoo());
+        shared_ptr <Foo> sh4(new Foo, DeleteFoo());
         //shared_ptr<Foo> sh4(new Foo, default_delete<Foo>());
     }
 

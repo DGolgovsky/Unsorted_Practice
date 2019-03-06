@@ -3,8 +3,7 @@
 
 using namespace std;
 
-int main()
-{
+int main() {
     float f_value1 = 1.1;
     cout << "f_value1 = 1.1 ";
 

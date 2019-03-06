@@ -2,11 +2,10 @@
 #include <vector>
 #include <algorithm>
 
-int second_largest(std::vector<int> array)
-{
+int second_largest(std::vector<int> array) {
     std::sort(array.begin(), array.end(), std::greater<int>());
     int max = array[0];
-    for (auto& it : array) {
+    for (auto &it : array) {
         if (it < max) {
             return it;
         }
@@ -14,12 +13,11 @@ int second_largest(std::vector<int> array)
     return -1;
 }
 
-int main()
-{
-    std::vector<int> arr1 = {1,2,3,4};
-    std::vector<int> arr2 = {4,1,2,3};
-    std::vector<int> arr3 = {1,1,2,2};
-    std::vector<int> arr4 = {1,1};
+int main() {
+    std::vector<int> arr1 = {1, 2, 3, 4};
+    std::vector<int> arr2 = {4, 1, 2, 3};
+    std::vector<int> arr3 = {1, 1, 2, 2};
+    std::vector<int> arr4 = {1, 1};
     std::vector<int> arr5 = {1};
     std::vector<int> arr6 = {};
     std::cout << second_largest(arr1) << std::endl;

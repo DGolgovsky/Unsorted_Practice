@@ -8,25 +8,24 @@
 #include <string>
 #include <exception>
 #include <stdexcept>
- 
+
 void handle_eptr(std::exception_ptr eptr) // passing by value is ok
 {
     try {
         if (eptr) {
             std::rethrow_exception(eptr);
         }
-    } catch(const std::exception& e) {
+    } catch (const std::exception &e) {
         std::cout << "Caught exception \"" << e.what() << "\"\n";
     }
 }
- 
-int main()
-{
+
+int main() {
     std::exception_ptr eptr;
 
     try {
         std::string().at(1); // this generates an std::out_of_range
-    } catch(...) {
+    } catch (...) {
         eptr = std::current_exception(); // capture
     }
 

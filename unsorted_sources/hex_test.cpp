@@ -1,7 +1,6 @@
 #include <iostream>
 
-int main()
-{
+int main() {
     unsigned i = 0xDEADBEEF;
     std::cout << "address of i is " << std::hex << &i;
     std::cin.get(); //Чтобы процесс не завершился

@@ -1,17 +1,15 @@
 #include <iostream>
 
-struct node
-{
+struct node {
     int key_value;
-    node* p_left;
-    node* p_right;
+    node *p_left;
+    node *p_right;
 };
 
-node* insert(node* p_tree, int key)
-{
+node *insert(node *p_tree, int key) {
     // node is empty -> insertion new node
     if (p_tree == NULL) {
-        node* p_new_tree = new node;
+        node *p_new_tree = new node;
         p_new_tree->p_left = NULL;
         p_new_tree->p_right = NULL;
         p_new_tree->key_value = key;
@@ -26,24 +24,19 @@ node* insert(node* p_tree, int key)
     return p_tree;
 }
 
-node* search(node* p_tree, int key)
-{
+node *search(node *p_tree, int key) {
     if (p_tree == NULL) {
         return NULL;
-    }
-    else if (key == p_tree->key_value) {
+    } else if (key == p_tree->key_value) {
         return p_tree;
-    }
-    else if (key < p_tree->key_value) {
+    } else if (key < p_tree->key_value) {
         return search(p_tree->p_left, key);
-    }
-    else {
+    } else {
         return search(p_tree->p_right, key);
     }
 }
 
-void destroy_tree(node* p_tree)
-{
+void destroy_tree(node *p_tree) {
     if (p_tree != NULL) {
         destroy_tree(p_tree->p_left);
         destroy_tree(p_tree->p_right);
@@ -54,8 +47,7 @@ void destroy_tree(node* p_tree)
     }
 }
 
-node* remove_max_node(node* p_tree, node* p_max_node)
-{
+node *remove_max_node(node *p_tree, node *p_max_node) {
     if (p_tree == NULL) {
         return NULL;
     }
@@ -66,8 +58,7 @@ node* remove_max_node(node* p_tree, node* p_max_node)
     return p_tree;
 }
 
-node* find_max(node* p_tree)
-{
+node *find_max(node *p_tree) {
     if (p_tree == NULL) {
         return NULL;
     }
@@ -77,29 +68,27 @@ node* find_max(node* p_tree)
     return find_max(p_tree->p_right);
 }
 
-node* remove(node* p_tree, int key)
-{
+node *remove(node *p_tree, int key) {
     if (p_tree == NULL) {
         return NULL;
     }
     if (p_tree->key_value == key) {
         if (p_tree->p_left == NULL) {
-            node* p_right_subtree = p_tree->p_right;
+            node *p_right_subtree = p_tree->p_right;
             delete p_tree;
             return p_right_subtree;
         }
         if (p_tree->p_right == NULL) {
-            node* p_left_subtree = p_tree->p_left;
+            node *p_left_subtree = p_tree->p_left;
             delete p_tree;
             return p_left_subtree;
         }
-        node* p_max_node = find_max(p_tree->p_left);
+        node *p_max_node = find_max(p_tree->p_left);
         p_max_node->p_left = remove_max_node(p_tree->p_left, p_max_node);
         p_max_node->p_right = p_tree->p_right;
         delete p_tree;
         return p_max_node;
-    }
-    else if (key < p_tree->key_value) {
+    } else if (key < p_tree->key_value) {
         p_tree->p_left = remove(p_tree->p_left, key);
     } else {
         p_tree->p_right = remove(p_tree->p_right, key);

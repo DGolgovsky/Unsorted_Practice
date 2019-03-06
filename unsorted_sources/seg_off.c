@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 
-int main(void)
-{
+int main(void) {
     int pow_2 = pow(2, 20);
     int res = 0;
     int count = 0;

@@ -1,9 +1,8 @@
 #include <iostream>
 #include <vector>
 
-int main()
-{
-    std::vector<int> dim = { 2, 3, 5 };
+int main() {
+    std::vector<int> dim = {2, 3, 5};
     std::vector<int> pos(dim.size(), 0);
     while (true) {
         for (size_t d = 0; d < dim.size(); ++d) {

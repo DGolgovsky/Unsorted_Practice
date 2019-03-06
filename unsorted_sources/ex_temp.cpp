@@ -9,10 +9,10 @@ using namespace std;
  * Auto-generated code below aims at helping you parse
  * the standard input according to the problem statement.
  **/
-int main()
-{
+int main() {
     int N; // the number of temperatures to analyse
-    cin >> N; cin.ignore();
+    cin >> N;
+    cin.ignore();
     string TEMPS; // the N temperatures expressed as integers ranging from -273 to 5526
     getline(cin, TEMPS);
     string arr[N];
@@ -20,12 +20,12 @@ int main()
     int min_val = 5526;
     if (N == 0) min_val = 0;
     //cout << TEMPS << endl;
-    
+
     while (TEMPS[k] != '\0') {
         if ((TEMPS[k] >= '0' && TEMPS[k] <= '9') || TEMPS[k] == '-') {
             arr[i] += TEMPS[k];
         } else {
-            int a = atoi( arr[i].c_str() );
+            int a = atoi(arr[i].c_str());
             //cout << arr[i] << "," << a << ";";
             if (min_val > abs(a)) min_val = a;
             i++;
