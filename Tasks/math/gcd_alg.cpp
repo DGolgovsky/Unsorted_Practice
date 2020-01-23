@@ -13,6 +13,16 @@ Int gcd(Int a, Int b) {
     return a;
 }
 
+int gcd_euclid(int a, int b)
+{
+    int r = 0;
+    while ((r = a % b) > 0) {
+        a = b;
+        b = r;
+    }
+    return b;
+}
+
 int main(void)
 {
     std::int64_t a, b;
