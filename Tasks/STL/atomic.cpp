@@ -13,7 +13,7 @@ void count1m (int id)
     while (!ready) { std::this_thread::yield(); }      // wait for the ready signal
     for (volatile int i=0; i<1000000; ++i) {}          // go!, count to 1 million
     if (!winner.test_and_set()) { std::cout << "thread #" << id << " won!\n"; }
-};
+}
 
 int main ()
 {
