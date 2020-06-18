@@ -12,4 +12,3 @@ while True:
     if line[0].islower():
         sys.stderr.write("You made a mistake! I will capitalize your name!\n")
     print("Nice to meet you, " + line[0].upper() + line[1:] + "!")
-

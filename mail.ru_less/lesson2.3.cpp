@@ -39,16 +39,15 @@ int main()
 
 #include <iostream>
 
-int main()
-{
-    int R, C;
-    std::cin >> R >> C;
-    int matrix[R][C];
-    for (int i = 0; i < R; ++i)
-        for (int j = 0; j < C; ++j)
-            std::cin >> matrix[i][j];
+int main() {
+	int R, C;
+	std::cin >> R >> C;
+	int matrix[R][C];
+	for (int i = 0; i < R; ++i)
+		for (int j = 0; j < C; ++j)
+			std::cin >> matrix[i][j];
 	for (int i = 0; i < C; ++i)
-        for (int j = 0; j < R; ++j)
-            std::cout << matrix[j][i] << " ";
-    return 0;
+		for (int j = 0; j < R; ++j)
+			std::cout << matrix[j][i] << " ";
+	return 0;
 }

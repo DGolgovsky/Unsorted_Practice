@@ -6,22 +6,21 @@
  * with float arithmetics
  */
 
-int main(void)
-{
-    float fahr, celsius;
-    int lower, upper, step;
+int main(void) {
+	float fahr, celsius;
+	int lower, upper, step;
 
-    lower = 0;      /* нижняя граница температру в таблице */
-    upper = 300;    /* верхняя граница */
-    step = 20;      /* величина шага */
+	lower = 0;      /* нижняя граница температру в таблице */
+	upper = 300;    /* верхняя граница */
+	step = 20;      /* величина шага */
 
-    fahr = lower;
-    printf("%s\n", "Fahr Celsius");
-    while (fahr <= upper) {
-        celsius = (5.0/9.0) * (fahr - 32);
-        printf("%3.0f %6.1f\n", fahr, celsius);
-        fahr = fahr + step;
-    }
+	fahr = lower;
+	printf("%s\n", "Fahr Celsius");
+	while (fahr <= upper) {
+		celsius = (5.0 / 9.0) * (fahr - 32);
+		printf("%3.0f %6.1f\n", fahr, celsius);
+		fahr = fahr + step;
+	}
 
-    return 0;
+	return 0;
 }

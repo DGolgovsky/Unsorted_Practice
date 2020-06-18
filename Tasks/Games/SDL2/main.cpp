@@ -4,6 +4,7 @@
 #include <GL/glu.h> // Библиотека GLU
 
 #include <iostream> // стандартная библиотека ввода-вывода в C++
+
 using namespace std;
 
 SDL_Window *window; // задаем окно для SDL
@@ -13,11 +14,11 @@ const int height = 480; // высота окна
 
 void drawCube(float xrf, float yrf, float zrf);
 
-void init(){
+void init() {
 
 	// Инициализация SDL
 
-	if ( SDL_Init(SDL_INIT_VIDEO) < 0 ){
+	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		cout << "Unable to init SDL, error: " << SDL_GetError() << endl;
 		exit(1);
 	}
@@ -31,11 +32,12 @@ void init(){
 
 	// Создаем окно с заголовком "Cube", размером 640х480 и расположенным по центру экрана.
 
-	window = SDL_CreateWindow("Cube", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
+	window = SDL_CreateWindow("Cube", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height,
+							  SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
 
 	SDL_GLContext glcontext = SDL_GL_CreateContext(window); // создаем контекст OpenGL
 
-	if(window == NULL){	// если не получилось создать окно, то выходим
+	if (window == NULL) {    // если не получилось создать окно, то выходим
 		exit(1);
 	}
 
@@ -52,7 +54,7 @@ void init(){
 	glMatrixMode(GL_MODELVIEW); // переходим в трехмерный режим
 }
 
-int main(int argc, char *argv[]){
+int main(int argc, char *argv[]) {
 
 	init(); // инициализация
 
@@ -60,27 +62,27 @@ int main(int argc, char *argv[]){
 
 	float xrf = 0, yrf = 0, zrf = 0; // углы поворота
 
-	while(running){
+	while (running) {
 
 		SDL_Event event; // события SDL
 
-		while ( SDL_PollEvent(&event) ){ // начинаем обработку событий
-			switch(event.type){ // смотрим:
-	case SDL_QUIT: // если произошло событие закрытия окна, то завершаем работу программы
-		running = false;
-	break;
+		while (SDL_PollEvent(&event)) { // начинаем обработку событий
+			switch (event.type) { // смотрим:
+				case SDL_QUIT: // если произошло событие закрытия окна, то завершаем работу программы
+					running = false;
+					break;
 
-	case SDL_KEYDOWN: // если нажата клавиша
-		switch(event.key.keysym.sym){ // смотрим какая
-			case SDLK_ESCAPE: // клавиша ESC
-	running = false; // завершаем работу программы
-			break;
-		}
-	break;
+				case SDL_KEYDOWN: // если нажата клавиша
+					switch (event.key.keysym.sym) { // смотрим какая
+						case SDLK_ESCAPE: // клавиша ESC
+							running = false; // завершаем работу программы
+							break;
+					}
+					break;
 			}
 		}
 
-	// пока программа запущена изменяем углы поворота, тем самым вращая куб
+		// пока программа запущена изменяем углы поворота, тем самым вращая куб
 
 		xrf -= 0.5;
 		yrf -= 0.5;
@@ -98,54 +100,54 @@ int main(int argc, char *argv[]){
 	return 0;
 }
 
-void drawCube(float xrf, float yrf, float zrf){
+void drawCube(float xrf, float yrf, float zrf) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glLoadIdentity();
-	glTranslatef(0.0f, 0.0f, -7.0f);	// Сдвинуть вглубь экрана
+	glTranslatef(0.0f, 0.0f, -7.0f);    // Сдвинуть вглубь экрана
 
-	glRotatef(xrf, 1.0f, 0.0f, 0.0f);	// Вращение куба по X, Y, Z
-	glRotatef(yrf, 0.0f, 1.0f, 0.0f);	// Вращение куба по X, Y, Z
-	glRotatef(zrf, 0.0f, 0.0f, 1.0f);	// Вращение куба по X, Y, Z
+	glRotatef(xrf, 1.0f, 0.0f, 0.0f);    // Вращение куба по X, Y, Z
+	glRotatef(yrf, 0.0f, 1.0f, 0.0f);    // Вращение куба по X, Y, Z
+	glRotatef(zrf, 0.0f, 0.0f, 1.0f);    // Вращение куба по X, Y, Z
 
-	glBegin(GL_QUADS);		// Рисуем куб
+	glBegin(GL_QUADS);        // Рисуем куб
 
-	glColor3f(0.0f, 1.0f, 0.0f);		// Синяя сторона (Верхняя)
-	glVertex3f( 1.0f, 1.0f, -1.0f);		// Верхний правый угол квадрата
-	glVertex3f(-1.0f, 1.0f, -1.0f);		// Верхний левый
-	glVertex3f(-1.0f, 1.0f,  1.0f);		// Нижний левый
-	glVertex3f( 1.0f, 1.0f,  1.0f);		// Нижний правый
+	glColor3f(0.0f, 1.0f, 0.0f);        // Синяя сторона (Верхняя)
+	glVertex3f(1.0f, 1.0f, -1.0f);        // Верхний правый угол квадрата
+	glVertex3f(-1.0f, 1.0f, -1.0f);        // Верхний левый
+	glVertex3f(-1.0f, 1.0f, 1.0f);        // Нижний левый
+	glVertex3f(1.0f, 1.0f, 1.0f);        // Нижний правый
 
-	glColor3f(1.0f, 0.5f, 0.0f);		// Оранжевая сторона (Нижняя)
-	glVertex3f( 1.0f, -1.0f,  1.0f);	// Верхний правый угол квадрата
-	glVertex3f(-1.0f, -1.0f,  1.0f);	// Верхний левый
-	glVertex3f(-1.0f, -1.0f, -1.0f);	// Нижний левый
-	glVertex3f( 1.0f, -1.0f, -1.0f);	// Нижний правый
+	glColor3f(1.0f, 0.5f, 0.0f);        // Оранжевая сторона (Нижняя)
+	glVertex3f(1.0f, -1.0f, 1.0f);    // Верхний правый угол квадрата
+	glVertex3f(-1.0f, -1.0f, 1.0f);    // Верхний левый
+	glVertex3f(-1.0f, -1.0f, -1.0f);    // Нижний левый
+	glVertex3f(1.0f, -1.0f, -1.0f);    // Нижний правый
 
-	glColor3f(1.0f, 0.0f, 0.0f);		// Красная сторона (Передняя)
-	glVertex3f( 1.0f,  1.0f, 1.0f);		// Верхний правый угол квадрата
-	glVertex3f(-1.0f,  1.0f, 1.0f);		// Верхний левый
-	glVertex3f(-1.0f, -1.0f, 1.0f);		// Нижний левый
-	glVertex3f( 1.0f, -1.0f, 1.0f);		// Нижний правый
+	glColor3f(1.0f, 0.0f, 0.0f);        // Красная сторона (Передняя)
+	glVertex3f(1.0f, 1.0f, 1.0f);        // Верхний правый угол квадрата
+	glVertex3f(-1.0f, 1.0f, 1.0f);        // Верхний левый
+	glVertex3f(-1.0f, -1.0f, 1.0f);        // Нижний левый
+	glVertex3f(1.0f, -1.0f, 1.0f);        // Нижний правый
 
-	glColor3f(1.0f,1.0f,0.0f);			// Желтая сторона (Задняя)
-	glVertex3f( 1.0f, -1.0f, -1.0f);	// Верхний правый угол квадрата
-	glVertex3f(-1.0f, -1.0f, -1.0f);	// Верхний левый
-	glVertex3f(-1.0f,  1.0f, -1.0f);	// Нижний левый
-	glVertex3f( 1.0f,  1.0f, -1.0f);	// Нижний правый
+	glColor3f(1.0f, 1.0f, 0.0f);            // Желтая сторона (Задняя)
+	glVertex3f(1.0f, -1.0f, -1.0f);    // Верхний правый угол квадрата
+	glVertex3f(-1.0f, -1.0f, -1.0f);    // Верхний левый
+	glVertex3f(-1.0f, 1.0f, -1.0f);    // Нижний левый
+	glVertex3f(1.0f, 1.0f, -1.0f);    // Нижний правый
 
-	glColor3f(0.0f,0.0f,1.0f);			// Синяя сторона (Левая)
-	glVertex3f(-1.0f,  1.0f,  1.0f);	// Верхний правый угол квадрата
-	glVertex3f(-1.0f,  1.0f, -1.0f);	// Верхний левый
-	glVertex3f(-1.0f, -1.0f, -1.0f);	// Нижний левый
-	glVertex3f(-1.0f, -1.0f,  1.0f);	// Нижний правый
+	glColor3f(0.0f, 0.0f, 1.0f);            // Синяя сторона (Левая)
+	glVertex3f(-1.0f, 1.0f, 1.0f);    // Верхний правый угол квадрата
+	glVertex3f(-1.0f, 1.0f, -1.0f);    // Верхний левый
+	glVertex3f(-1.0f, -1.0f, -1.0f);    // Нижний левый
+	glVertex3f(-1.0f, -1.0f, 1.0f);    // Нижний правый
 
-	glColor3f(1.0f,0.0f,1.0f);			// Фиолетовая сторона (Правая)
-	glVertex3f( 1.0f,  1.0f, -1.0f);	// Верхний правый угол квадрата
-	glVertex3f( 1.0f,  1.0f,  1.0f);	// Верхний левый
-	glVertex3f( 1.0f, -1.0f,  1.0f);	// Нижний левый
-	glVertex3f( 1.0f, -1.0f, -1.0f);	// Нижний правый
+	glColor3f(1.0f, 0.0f, 1.0f);            // Фиолетовая сторона (Правая)
+	glVertex3f(1.0f, 1.0f, -1.0f);    // Верхний правый угол квадрата
+	glVertex3f(1.0f, 1.0f, 1.0f);    // Верхний левый
+	glVertex3f(1.0f, -1.0f, 1.0f);    // Нижний левый
+	glVertex3f(1.0f, -1.0f, -1.0f);    // Нижний правый
 
-	glEnd();	// Закончили квадраты
+	glEnd();    // Закончили квадраты
 
 }

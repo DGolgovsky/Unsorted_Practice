@@ -1,7 +1,7 @@
 #include "square.hpp"
 
 int main() {
-    return square(5);
+	return square(5);
 }
 	
 	

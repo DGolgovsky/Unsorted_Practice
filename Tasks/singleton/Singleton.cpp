@@ -1,7 +1,8 @@
 #include <iostream>
 
-struct Singleton {
-	static Singleton& instance() {
+struct Singleton
+{
+	static Singleton &instance() {
 		static Singleton s;
 		return s;
 	}
@@ -14,8 +15,9 @@ struct Singleton {
 private:
 	Singleton() {}
 
-	Singleton(Singleton const&);
-	Singleton& operator=(Singleton const&);
+	Singleton(Singleton const &);
+
+	Singleton &operator=(Singleton const &);
 
 	int data_;
 };

@@ -1,25 +1,24 @@
 #include <iostream>
 
-int main(void)
-{
-    bool check = 0;
-    std::string out_text = "";
-    for (int i = 1; i <= 100; ++i) {
-        check = 0;
-        if (i%3 == 0) {
-            std::cout << "Fizz";
-            check = 1;
-        }
-        if (i%5 == 0) {
-            std::cout << "Buzz";
-            check = 1;
-        }
-        if (!check)
-            std::cout << i;
-        std::cout << " ";
-    }
+int main(void) {
+	bool check = 0;
+	std::string out_text = "";
+	for (int i = 1; i <= 100; ++i) {
+		check = 0;
+		if (i % 3 == 0) {
+			std::cout << "Fizz";
+			check = 1;
+		}
+		if (i % 5 == 0) {
+			std::cout << "Buzz";
+			check = 1;
+		}
+		if (!check)
+			std::cout << i;
+		std::cout << " ";
+	}
 
-    std::cout << std::endl;
+	std::cout << std::endl;
 
-    return 0;
+	return 0;
 }

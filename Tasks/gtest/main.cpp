@@ -1,9 +1,8 @@
 #include "hello.h"
 #include <iostream>
 
-int main()
-{
-    print_hello(std::cout);
+int main() {
+	print_hello(std::cout);
 
-    return 0;
+	return 0;
 }

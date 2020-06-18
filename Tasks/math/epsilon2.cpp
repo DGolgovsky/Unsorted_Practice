@@ -7,13 +7,12 @@
 #include <cmath>
 #include <iomanip>
 
-int main()
-{
+int main() {
 	double x = 0.0;
 	size_t a[3] = {};
 	double e1 = pow(10, -1),
-	       e2 = pow(10, -3),
-	       e3 = pow(10, -6);	
+			e2 = pow(10, -3),
+			e3 = pow(10, -6);
 	//std::cout << e1 << " " << e2 << " " << e3 << "\n";
 	for (size_t n = 1; n < 5000000; ++n) {
 		x = ((2.0 * n - 1.0) / (n + 2.0) - 2.0) * (-1.0);

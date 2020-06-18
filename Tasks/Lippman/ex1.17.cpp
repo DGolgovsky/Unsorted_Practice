@@ -27,7 +27,7 @@
 int main() {
 	int value, count = 0;
 	std::cout << "Enter some numbers. For exit type non-number char."
-						<< std::endl;
+			  << std::endl;
 	while (std::cin >> value)
 		if (value < 0)
 			count++;

@@ -11,10 +11,10 @@
 #include <cmath>
 
 int main() {
-    double number = 0.0;
+	double number = 0.0;
 
-    std::cout << "Enter some decimal number: ";
-    std::cin >> number;
+	std::cout << "Enter some decimal number: ";
+	std::cin >> number;
 /* first idea
     int rem = fmod(number, 100);
 
@@ -24,10 +24,10 @@ int main() {
     else if (rem > 24)
         number = (int)number + 50;
 */
-    double rem = round(number / 50.0);
-    number = 50 * rem;
+	double rem = round(number / 50.0);
+	number = 50 * rem;
 
-    std::cout << "Number after rounding: " << number << std::endl;
+	std::cout << "Number after rounding: " << number << std::endl;
 
-    return 0;
+	return 0;
 }

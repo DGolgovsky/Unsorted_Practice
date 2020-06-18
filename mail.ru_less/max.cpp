@@ -64,16 +64,16 @@ int main() {
 #include <iostream>
 
 int main() {
-    double p,x,y;
-    std::cin >> p >> x >> y;
-    x=x*100+y;
+	double p, x, y;
+	std::cin >> p >> x >> y;
+	x = x * 100 + y;
 	std::cout << "x=" << x << "\n";
-    x=x+x*(p/100);
+	x = x + x * (p / 100);
 	std::cout << "x=" << x << "\n";
-    y=(int)(x - ((int)(x/100))*100);
+	y = (int) (x - ((int) (x / 100)) * 100);
 	std::cout << "y=" << y << "\n";
-    x=(x-y)/100;
+	x = (x - y) / 100;
 	std::cout << "x=" << x << "\n";
-    std::cout << x << " " << y;
-    return 0;
+	std::cout << x << " " << y;
+	return 0;
 }

@@ -32,4 +32,4 @@ current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 print(current_time)
 print("Control sum: " + str(control_sum(current_time)))
 
-#print check(current_time + '\n' + "Control sum: " + str(control_sum(current_time)))
+# print check(current_time + '\n' + "Control sum: " + str(control_sum(current_time)))

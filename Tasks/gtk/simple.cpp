@@ -7,14 +7,13 @@
 
 #include <gtkmm.h>
 
-int main(int argc, char **argv)
-{
-    auto app = // Glib::RefPtr<Gtk::Application> app =
-        Gtk::Application::create(argc, argv,
-                "org.gtkmm.example.base");
+int main(int argc, char **argv) {
+	auto app = // Glib::RefPtr<Gtk::Application> app =
+			Gtk::Application::create(argc, argv,
+									 "org.gtkmm.example.base");
 
-    Gtk::Window window;
-    window.set_default_size(200, 200);
+	Gtk::Window window;
+	window.set_default_size(200, 200);
 
-    return app->run(window);
+	return app->run(window);
 }

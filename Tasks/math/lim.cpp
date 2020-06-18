@@ -8,10 +8,10 @@
 int main() {
 	double x = 0.0;
 	for (int n = 1; n < 1000; ++n) {
-		x = (double)(2*n-1)/(4*n+5);
-		if (x < 0.499 || x > 0.501) 
+		x = (double) (2 * n - 1) / (4 * n + 5);
+		if (x < 0.499 || x > 0.501)
 			std::cout << n << ":"
-				  << std::setprecision(10) << x << "\n";
+					  << std::setprecision(10) << x << "\n";
 	}
 	return 0;
 }

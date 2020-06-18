@@ -16,7 +16,10 @@ public:
 	Defibrillator(string description);
 
 	string get_name() const;
-        string get_address() const;
+
+	string get_address() const;
+
 	string get_phone() const;
+
 	Point get_location() const;
 };

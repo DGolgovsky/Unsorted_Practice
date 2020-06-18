@@ -3,10 +3,10 @@
 
 #include <experimental/type_traits>
 
-template<class T>
-using at_t = decltype(std::declval<T&>().at(0));
+template <class T>
+using at_t = decltype(std::declval<T &>().at(0));
 
-template<typename T>
+template <typename T>
 constexpr bool has_at = std::experimental::is_detected_v<at_t, T>;
 
 /* SFINAE test examples */

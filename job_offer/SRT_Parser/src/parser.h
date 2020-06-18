@@ -18,20 +18,27 @@ namespace srt
 
 	public:
 		parser() = default;
+
 		explicit parser(const std::string &&file);
+
 		~parser() = default;
 
 		void write(std::string const &ofile);
+
 		void write();
+
 		void serialize(uint64_t &message);
 
 	private:
-		template<typename T, typename U>
-		void to_json(std::pair<T, U> &&it);
+		template <typename T, typename U>
+		void to_json(std::pair <T, U> &&it);
 
 		void parse_reset(uint64_t &message);
+
 		void parse_error(uint64_t &message);
+
 		void parse_monthly(uint64_t &message);
+
 		void parse_daily(uint64_t &message);
 	};
 }

@@ -9,13 +9,12 @@ using namespace std::chrono;
 
 struct Path
 {
-    string From;
-    string To;
+	string From;
+	string To;
 };
 
-deque<string> getRoute(vector<Path> cityList)
-{
-	deque<string> finalRoute;
+deque <string> getRoute(vector <Path> cityList) {
+	deque <string> finalRoute;
 
 	finalRoute.push_front(cityList[0].From);
 	finalRoute.push_back(cityList[0].To);
@@ -23,7 +22,7 @@ deque<string> getRoute(vector<Path> cityList)
 
 	string back, front;
 	for (unsigned int i = 0; i < cityList.size(); ++i) {
-		for(auto& it : cityList) {
+		for (auto &it : cityList) {
 			if (it.To == "-") continue;
 			front = finalRoute.front();
 			back = finalRoute.back();
@@ -40,20 +39,22 @@ deque<string> getRoute(vector<Path> cityList)
 	return finalRoute;
 }
 
-int main()
-{
-    vector<Path> cityList = {{"Омск", "Екатеринбург"}, {"Владивосток", "Тюмень"}, {"Екатеринбург", "Москва"}, {"Тюмень", "Омск"}};
-	deque<string> finalRoute;
+int main() {
+	vector <Path> cityList = {{"Омск",         "Екатеринбург"},
+							  {"Владивосток",  "Тюмень"},
+							  {"Екатеринбург", "Москва"},
+							  {"Тюмень",       "Омск"}};
+	deque <string> finalRoute;
 
-    auto start = steady_clock::now();
+	auto start = steady_clock::now();
 	finalRoute = getRoute(cityList);
-    auto finish = steady_clock::now();
-    for (const auto& it : finalRoute) {
-        cout << it << " ";
-    }
-    cout << endl << "Function getRoute: "
-        << duration_cast<milliseconds>(finish - start).count()
-        << " ms" << endl;
+	auto finish = steady_clock::now();
+	for (const auto &it : finalRoute) {
+		cout << it << " ";
+	}
+	cout << endl << "Function getRoute: "
+		 << duration_cast<milliseconds>(finish - start).count()
+		 << " ms" << endl;
 
-    return 0;
+	return 0;
 }

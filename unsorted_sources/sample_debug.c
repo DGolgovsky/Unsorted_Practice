@@ -5,10 +5,10 @@
 #include "debug.h"
 
 int main() {
-    int i = 0;
-    while (i < 6) {
-        PDEBUG(1, "i = %d", i);
-        i++;
-    }
-    return 0;
+	int i = 0;
+	while (i < 6) {
+		PDEBUG(1, "i = %d", i);
+		i++;
+	}
+	return 0;
 }

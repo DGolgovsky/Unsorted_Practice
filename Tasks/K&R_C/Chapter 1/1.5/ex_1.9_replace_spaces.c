@@ -1,21 +1,19 @@
 #include <stdio.h>
 
-int main(void)
-{
-    unsigned int c, d;
+int main(void) {
+	unsigned int c, d;
 
-    c = getchar();
-    putchar(c);
+	c = getchar();
+	putchar(c);
 
-    while ((d = getchar()) != EOF) {
-        if (c != d)
-            putchar(d);
-        else
-            if (c != ' ')
-                putchar(d);
-    }
+	while ((d = getchar()) != EOF) {
+		if (c != d)
+			putchar(d);
+		else if (c != ' ')
+			putchar(d);
+	}
 
-    c = d;
+	c = d;
 
-    return 0;
+	return 0;
 }

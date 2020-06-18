@@ -1,8 +1,9 @@
 #ifdef __cplusplus
 extern "C" {
-#endif 
+#endif
 
 int sumI(int a, int b);
+
 float sumF(float a, float b);
 
 #ifdef __cplusplus

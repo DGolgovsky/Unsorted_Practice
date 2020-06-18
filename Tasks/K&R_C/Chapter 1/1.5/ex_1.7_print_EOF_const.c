@@ -4,9 +4,8 @@
  * Copy istream to ostream
  */
 
-int main(void)
-{
-    putchar(EOF);
+int main(void) {
+	putchar(EOF);
 
-    return 0;
+	return 0;
 }

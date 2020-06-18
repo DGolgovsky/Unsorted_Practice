@@ -4,12 +4,11 @@
  * Copy istream to ostream
  */
 
-int main(void)
-{
-    int c;
-    
-    while ((c = getchar()) != EOF)
-        putchar(c);
+int main(void) {
+	int c;
 
-    return 0;
+	while ((c = getchar()) != EOF)
+		putchar(c);
+
+	return 0;
 }

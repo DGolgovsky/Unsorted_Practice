@@ -18,11 +18,11 @@ int main() {
 	getline(std::cin, N_str);
 	unsigned int N = std::stoi(N_str);
 
-	std::vector<Defibrillator*> list_def;
+	std::vector < Defibrillator * > list_def;
 	for (size_t i = 0; i < N; ++i) {
 		string description;
 		getline(std::cin, description);
-		list_def.push_back (new Defibrillator(description));
+		list_def.push_back(new Defibrillator(description));
 	}
 
 	// Find the nearest defibrillator and store its address

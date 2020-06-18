@@ -9,9 +9,9 @@ target_include_directories(test_hello PRIVATE ${GTEST_INCLUDE_DIRS})
 target_link_libraries(test_hello pthread ${GTEST_BOTH_LIBRARIES})
 
 set_target_properties(helloworld_cli test_hello PROPERTIES
-    CXX_STANDART 14
-    CXX_STANDART_REQUIRED ON
-    COMPILE_OPTIONS -Wall -Wextra -Wpedantic
-)
+                      CXX_STANDART 14
+                      CXX_STANDART_REQUIRED ON
+                      COMPILE_OPTIONS -Wall -Wextra -Wpedantic
+                      )
 
 add_test(AllTests test_hello)

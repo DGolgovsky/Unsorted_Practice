@@ -13,7 +13,7 @@ int main() {
 //	std::cout << /*length << */"\n";
 	int i = 0;
 	bool check;
-	while(i < length) {
+	while (i < length) {
 //		std::cout << q+i << "\n";
 		check = 1;
 		for (int j = i + 1; j < length; ++j) {
@@ -25,10 +25,10 @@ int main() {
 			}
 		}
 		if (check)
-			std::cout << *(q+i) << "\n";
+			std::cout << *(q + i) << "\n";
 		i++;
 	}
 //	std::cout << std::endl;
-	delete p;				
+	delete p;
 	return 0;
 }

@@ -2,20 +2,27 @@
 
 struct empty_stack : std::exception
 {
-    const char* what() cinst throw();
+	const char *what()
+
+	cinst throw();
 };
 
-template<typename T>
+template <typename T>
 class threadsafe_stack
 {
 public:
-    threadsafe_stack();
-    threadsafe_stack(const threadsafe_stack&);
-    threadsafe_stack& operator=(const threadsafe_stack&) = delete;
+	threadsafe_stack();
 
-    void push(T new_value);
-    std::shared_ptr<T> pop();
-    void pop(T& value);
-    bool empty() const;
+	threadsafe_stack(const threadsafe_stack &);
+
+	threadsafe_stack &operator=(const threadsafe_stack &) = delete;
+
+	void push(T new_value);
+
+	std::shared_ptr <T> pop();
+
+	void pop(T &value);
+
+	bool empty() const;
 };
 

@@ -7,12 +7,11 @@
 #include <iomanip>
 #include <cmath>
 
-int main()
-{
+int main() {
 	double x = 0.0;
 	size_t a[3] = {};
 	for (size_t n = 1; n < 25000002; ++n) {
-		x = (double)5 / sqrt(n);
+		x = (double) 5 / sqrt(n);
 		if (x < 1 && a[0] == 0)
 			a[0] = n;
 		if (x < 0.1 && a[1] == 0)

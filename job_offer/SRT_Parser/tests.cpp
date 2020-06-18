@@ -1,8 +1,7 @@
 #include <iostream>
 #include "src/parser.h"
 
-int main()
-{
+int main() {
 	srt::parser prs;
 
 	/** Сообщение о сбросе */
@@ -27,3 +26,4 @@ int main()
 
 	return 0;
 }
+

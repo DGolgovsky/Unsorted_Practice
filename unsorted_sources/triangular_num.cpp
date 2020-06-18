@@ -23,43 +23,43 @@ using namespace std;
 #define MAX 9223372036854775807
 
 bool ReadA(int64_t &a) {
-    std::string::size_type end = 0;
-    string str;
+	std::string::size_type end = 0;
+	string str;
 
-    std::cin >> str;
+	std::cin >> str;
 
-    std::size_t found = str.find_first_not_of("+\n0123456789");
+	std::size_t found = str.find_first_not_of("+\n0123456789");
 
-    if (found != std::string::npos)
-        return false;
-    else
-        a = stoull(str, NULL, 0);
-    long long value = 0;
+	if (found != std::string::npos)
+		return false;
+	else
+		a = stoull(str, NULL, 0);
+	long long value = 0;
 
-    if (!(value = std::stoll(str, &end, 10)) || errno)
-        return false;
+	if (!(value = std::stoll(str, &end, 10)) || errno)
+		return false;
 
-    string s = to_string(value);
+	string s = to_string(value);
 
-    if (a <= 0 || a > MAX)
-        return false;
-    else
-        return true;
+	if (a <= 0 || a > MAX)
+		return false;
+	else
+		return true;
 }
 
 int main(void) {
-    int64_t a;
-    int64_t b = 0;
+	int64_t a;
+	int64_t b = 0;
 
-    if (!ReadA(a)) {
-        std::cout << 0;
-        std::cout << std::endl;
-        return 0;
-    }
+	if (!ReadA(a)) {
+		std::cout << 0;
+		std::cout << std::endl;
+		return 0;
+	}
 
-    for (; a > 0; ++b)
-        a -= b;
-    std::cout << (a ? 0 : b - 1);
-    std::cout << std::endl;
-    return 0;
+	for (; a > 0; ++b)
+		a -= b;
+	std::cout << (a ? 0 : b - 1);
+	std::cout << std::endl;
+	return 0;
 }

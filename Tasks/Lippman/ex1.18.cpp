@@ -24,8 +24,7 @@
 
 #include <iostream>
 
-int main()
-{
+int main() {
 	int val1, val2;
 	std::cout << "Enter two numbers:\n";
 	std::cin >> val1 >> val2;
@@ -39,6 +38,6 @@ int main()
 		std::cout << val1 << " ";
 		val1 = val1 + sign;
 	}
-	std::cout << std::endl;	
+	std::cout << std::endl;
 	return 0;
 }

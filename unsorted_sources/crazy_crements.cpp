@@ -6,8 +6,8 @@
 #include <iostream>
 
 int main(void) {
-    int i = 10;
-    i += ++i++ ++ + i++;
-    std::cout << i << std::endl;
-    return 0;
+	int i = 10;
+	i += ++i++ ++ + i++;
+	std::cout << i << std::endl;
+	return 0;
 }

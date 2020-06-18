@@ -29,7 +29,7 @@ int main() {
 	std::cin >> v1 >> v2;
 	if (v1 < v2)
 		v1 = v2;
-	std::cout << "Biggest: " << v1 << std::endl;		
+	std::cout << "Biggest: " << v1 << std::endl;
 	return 0;
 }
 

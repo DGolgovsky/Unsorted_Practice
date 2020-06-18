@@ -5,12 +5,12 @@ using std::cout;
 using std::endl;
 
 int main() {
-    int i = 42;
-    double d = 3.14;
+	int i = 42;
+	double d = 3.14;
 
-    std::cout << "Enter an integer and a double:\n";
-    std::cin >> i >> d;
-    std::cout << "Your input is " << i << ", " << d << "\n";
+	std::cout << "Enter an integer and a double:\n";
+	std::cin >> i >> d;
+	std::cout << "Your input is " << i << ", " << d << "\n";
 
-    return 0;
+	return 0;
 }

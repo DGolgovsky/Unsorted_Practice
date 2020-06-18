@@ -8,7 +8,7 @@ add_subdirectory(libs/libcracker)
 add_subdirectory(app)
 
 if(BUILD_TESTING)
-    enable_testing()
-    add_subdirectory(tests/libcracker)
+	enable_testing()
+	add_subdirectory(tests/libcracker)
 endif()
 

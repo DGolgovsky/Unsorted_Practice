@@ -1,8 +1,8 @@
 #include <stdlib.h>
 
 int main() {
-    system("shutdown -P 16:58");
+	system("shutdown -P 16:58");
 
-    return 0;
+	return 0;
 }
 

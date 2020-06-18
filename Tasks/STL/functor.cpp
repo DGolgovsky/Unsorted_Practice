@@ -11,26 +11,25 @@
 
 using namespace std;
 
-int main(void)
-{
-    list<int> numbers;
+int main(void) {
+	list<int> numbers;
 
-    for (int i = 0; i < 10; ++i)
-        numbers.push_back(rand() % 100);
+	for (int i = 0; i < 10; ++i)
+		numbers.push_back(rand() % 100);
 
-    list<int>::iterator ptr;
+	list<int>::iterator ptr;
 
-    for (ptr = numbers.begin(); ptr != numbers.end(); ++ptr)
-        cout << *ptr << " ";
-    cout << endl;
+	for (ptr = numbers.begin(); ptr != numbers.end(); ++ptr)
+		cout << *ptr << " ";
+	cout << endl;
 
-    ptr = find_if(numbers.begin(), numbers.end(),
-            bind2nd(greater_equal<int>(), 50));
+	ptr = find_if(numbers.begin(), numbers.end(),
+				  bind2nd(greater_equal<int>(), 50));
 
-    if (ptr == numbers.end())
-        cout << "not found" << endl;
-    else
-        cout << *ptr << " found" << endl;
+	if (ptr == numbers.end())
+		cout << "not found" << endl;
+	else
+		cout << *ptr << " found" << endl;
 
-    return 0;
+	return 0;
 }

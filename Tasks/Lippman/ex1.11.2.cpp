@@ -1,9 +1,9 @@
 #include <iostream>
 
-int main() {	
+int main() {
 	std::cout << "(for)";
 	for (int val = 10; val >= 0; val--)
 		std::cout << " " << val;
-	std::cout << std::endl;	
+	std::cout << std::endl;
 	return 0;
 }

@@ -5,21 +5,20 @@
 
 using namespace std;
 
-int main(int argc, char* argv[])
-{
-    Counters c;
-    increment1(c); // 3 times
-    increment1(c);
-    increment1(c);
-    increment2(c); // 4 times
-    increment2(c);
-    increment2(c);
-    increment2(c);
-    cout << "c.get1(): " << c.get1() << endl; // Should be 3
-    cout << "c.get2(): " << c.get2() << endl; // Should be 4
+int main(int argc, char *argv[]) {
+	Counters c;
+	increment1(c); // 3 times
+	increment1(c);
+	increment1(c);
+	increment2(c); // 4 times
+	increment2(c);
+	increment2(c);
+	increment2(c);
+	cout << "c.get1(): " << c.get1() << endl; // Should be 3
+	cout << "c.get2(): " << c.get2() << endl; // Should be 4
 #ifndef NDEBUG // For debug builds
-    cout << "c.getDebugAllCounters(): " << c.getDebugAllCounters() << endl;
+	cout << "c.getDebugAllCounters(): " << c.getDebugAllCounters() << endl;
 #endif
-    return 0;
+	return 0;
 }
 

@@ -24,51 +24,49 @@
 #include <algorithm>
 
 /* Returns sum of digits*/
-template<typename T>
-unsigned split(T num)
-{
-    T sum = 0;
-    while (num != 0) {
-        sum = sum + num % 10;
-        num = num / 10;
-    }
-    return sum;
+template <typename T>
+unsigned split(T num) {
+	T sum = 0;
+	while (num != 0) {
+		sum = sum + num % 10;
+		num = num / 10;
+	}
+	return sum;
 }
 
-int main()
-{
-    unsigned K1 = 32; // As default example: 32 && 47 = 47;
-    unsigned K2 = 47;
-    std::set<unsigned> set;
+int main() {
+	unsigned K1 = 32; // As default example: 32 && 47 = 47;
+	unsigned K2 = 47;
+	std::set<unsigned> set;
 
-    while (std::cin >> K1 >> K2) {
-        set.clear();
-        auto max = std::max(K1, K2);
-        auto min = std::min(K1, K2);
+	while (std::cin >> K1 >> K2) {
+		set.clear();
+		auto max = std::max(K1, K2);
+		auto min = std::min(K1, K2);
 
-        while (min < max) {
-            min += split(min);
-        }
-        set.insert(max);
-        auto result = set.insert(min);
-        if (result.second) { // Check for existance
-            while (max < UINT_MAX) {
-                max += split(max);
-                result = set.insert(max);
-                if (!result.second) // Check for existance/intersection
-                    break;
+		while (min < max) {
+			min += split(min);
+		}
+		set.insert(max);
+		auto result = set.insert(min);
+		if (result.second) { // Check for existance
+			while (max < UINT_MAX) {
+				max += split(max);
+				result = set.insert(max);
+				if (!result.second) // Check for existance/intersection
+					break;
 
-                min += split(min);
-                result = set.insert(min);
-                if (!result.second) // Check for existance/intersection
-                    break;
-            }
-        }
-        
-        std::cout << "Intersection of two sequences: " << std::min(min,max) << std::endl;
-    }
+				min += split(min);
+				result = set.insert(min);
+				if (!result.second) // Check for existance/intersection
+					break;
+			}
+		}
 
-    return 0;
+		std::cout << "Intersection of two sequences: " << std::min(min, max) << std::endl;
+	}
+
+	return 0;
 }
 
 /* Another (best) solution

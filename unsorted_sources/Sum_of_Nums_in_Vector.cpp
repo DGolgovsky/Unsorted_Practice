@@ -19,25 +19,25 @@
 using std::vector;
 
 vector<int> twoSum(vector<int> &nums, int target) {
-    vector<int> ret(2);
-    for (auto i = nums.begin(); i != nums.end(); ++i)
-        for (auto j = i + 1; j != end(nums); ++j)
-            if (*i + *j == target) {
-                ret[0] = i - begin(nums);
-                ret[1] = std::distance(begin(nums), j);
-                return ret;
-            }
-    return ret;
+	vector<int> ret(2);
+	for (auto i = nums.begin(); i != nums.end(); ++i)
+		for (auto j = i + 1; j != end(nums); ++j)
+			if (*i + *j == target) {
+				ret[0] = i - begin(nums);
+				ret[1] = std::distance(begin(nums), j);
+				return ret;
+			}
+	return ret;
 }
 
 int main() {
-    vector<int> nums = {2, 7, 11, 15};
-    int target = 9;
+	vector<int> nums = {2, 7, 11, 15};
+	int target = 9;
 
-    auto ret_vector = twoSum(nums, target);
+	auto ret_vector = twoSum(nums, target);
 
-    std::cout << "[" << ret_vector.at(0) << ", "
-              << ret_vector.at(1) << "]" << std::endl;
+	std::cout << "[" << ret_vector.at(0) << ", "
+			  << ret_vector.at(1) << "]" << std::endl;
 
-    return 0;
+	return 0;
 }

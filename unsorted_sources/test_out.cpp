@@ -19,73 +19,74 @@
 #include <iostream>
 #include <ctime>
 
-class TimedSection {
+class TimedSection
+{
 private:
-    char const *d_name;
-    struct timespec d_start;
+	char const *d_name;
+	struct timespec d_start;
 
 public:
-    TimedSection(char const *name)
-            : d_name(name) {
-        clock_gettime(CLOCK_REALTIME, &d_start);
-    }
+	TimedSection(char const *name)
+			: d_name(name) {
+		clock_gettime(CLOCK_REALTIME, &d_start);
+	}
 
-    ~TimedSection() {
-        timespec end;
-        clock_gettime(CLOCK_REALTIME, &end);
-        double duration = 1e3 * (end.tv_sec - d_start.tv_sec) +
-                          1e-6 * (end.tv_nsec - d_start.tv_nsec);
-        std::cerr << d_name << '\t' << std::fixed << duration << " ms\n";
-    }
+	~TimedSection() {
+		timespec end;
+		clock_gettime(CLOCK_REALTIME, &end);
+		double duration = 1e3 * (end.tv_sec - d_start.tv_sec) +
+						  1e-6 * (end.tv_nsec - d_start.tv_nsec);
+		std::cerr << d_name << '\t' << std::fixed << duration << " ms\n";
+	}
 };
 
 int main() {
-    const int iters = 100;
-    char const *text = "01234567890123456789";
-    {
-        TimedSection s("cout with only endl");
-        for (int i = 0; i < iters; ++i)
-            std::cout << std::endl;
-    }
-    {
-        TimedSection s("cout with only '\\n'");
-        for (int i = 0; i < iters; ++i)
-            std::cout << '\n';
-    }
-    {
-        TimedSection s("printf with only '\\n'");
-        for (int i = 0; i < iters; ++i)
-            printf("\n");
-    }
-    {
-        TimedSection s("cout with string constant and endl");
-        for (int i = 0; i < iters; ++i)
-            std::cout << "01234567890123456789" << std::endl;
-    }
-    {
-        TimedSection s("cout with string constant and '\\n'");
-        for (int i = 0; i < iters; ++i)
-            std::cout << "01234567890123456789\n";
-    }
-    {
-        TimedSection s("printf with string constant and '\\n'");
-        for (int i = 0; i < iters; ++i)
-            printf("01234567890123456789\n");
-    }
-    {
-        TimedSection s("cout with some stuff and endl");
-        for (int i = 0; i < iters; ++i)
-            std::cout << text << "01234567890123456789" << i << std::endl;
-    }
-    {
-        TimedSection s("cout with some stuff and '\\n'");
-        for (int i = 0; i < iters; ++i)
-            std::cout << text << "01234567890123456789" << i << '\n';
-    }
-    {
-        TimedSection s("printf with some stuff and '\\n'");
-        for (int i = 0; i < iters; ++i)
-            printf("%s01234567890123456789%i\n", text, i);
-    }
-    return 0;
+	const int iters = 100;
+	char const *text = "01234567890123456789";
+	{
+		TimedSection s("cout with only endl");
+		for (int i = 0; i < iters; ++i)
+			std::cout << std::endl;
+	}
+	{
+		TimedSection s("cout with only '\\n'");
+		for (int i = 0; i < iters; ++i)
+			std::cout << '\n';
+	}
+	{
+		TimedSection s("printf with only '\\n'");
+		for (int i = 0; i < iters; ++i)
+			printf("\n");
+	}
+	{
+		TimedSection s("cout with string constant and endl");
+		for (int i = 0; i < iters; ++i)
+			std::cout << "01234567890123456789" << std::endl;
+	}
+	{
+		TimedSection s("cout with string constant and '\\n'");
+		for (int i = 0; i < iters; ++i)
+			std::cout << "01234567890123456789\n";
+	}
+	{
+		TimedSection s("printf with string constant and '\\n'");
+		for (int i = 0; i < iters; ++i)
+			printf("01234567890123456789\n");
+	}
+	{
+		TimedSection s("cout with some stuff and endl");
+		for (int i = 0; i < iters; ++i)
+			std::cout << text << "01234567890123456789" << i << std::endl;
+	}
+	{
+		TimedSection s("cout with some stuff and '\\n'");
+		for (int i = 0; i < iters; ++i)
+			std::cout << text << "01234567890123456789" << i << '\n';
+	}
+	{
+		TimedSection s("printf with some stuff and '\\n'");
+		for (int i = 0; i < iters; ++i)
+			printf("%s01234567890123456789%i\n", text, i);
+	}
+	return 0;
 }

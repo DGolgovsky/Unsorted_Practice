@@ -1,12 +1,11 @@
 #include <iostream>
 
-int main()
-{
+int main() {
 	try {
-		int a = 2/0;
+		int a = 2 / 0;
 		return 0;
 	}
-	catch (exception& e) {
+	catch (exception &e) {
 		std::cerr << "error: " << e.what() << '\n';
 		return 1;
 	}

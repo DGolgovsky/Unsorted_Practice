@@ -24,8 +24,7 @@
 
 #include <iostream>
 
-int main()
-{
+int main() {
 	int val1 = 0, val2 = 0, sum = 0;
 	std::cout << "Enter two numbers:\n";
 	std::cin >> val1 >> val2;
@@ -33,6 +32,6 @@ int main()
 		sum += i;
 	for (int i = val2; i <= val1; i++)
 		sum += i;
-	std::cout << sum << std::endl;		
+	std::cout << sum << std::endl;
 	return 0;
 }

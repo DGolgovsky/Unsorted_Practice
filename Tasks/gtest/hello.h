@@ -3,6 +3,6 @@
 
 #include <ostream>
 
-void print_hello(std::ostream&);
+void print_hello(std::ostream &);
 
 #endif
