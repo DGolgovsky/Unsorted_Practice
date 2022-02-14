@@ -17,7 +17,8 @@ class Bar {
 int main() 
 {
     printf( "%u - %u\n", sizeof(Foo), sizeof(Bar) );
-
+	// Program returned: 16 - 12 (x64)
+	
     return 0;
 }
 
